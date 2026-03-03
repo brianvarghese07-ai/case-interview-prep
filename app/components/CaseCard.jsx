@@ -37,7 +37,7 @@ export default function CaseCard({ c }) {
   return (
     <Link
       href={`/cases/${c.id}`}
-      className={`card border-l-4 ${categoryBorder} p-5 flex flex-col gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group`}
+      className={`card border-l-4 ${categoryBorder} p-5 flex flex-col gap-4 hover:shadow-xl hover:shadow-brand-100/70 hover:-translate-y-1 transition-all duration-200 group`}
     >
       {/* Top Row: Category + Difficulty */}
       <div className="flex items-start justify-between gap-2">
@@ -45,7 +45,7 @@ export default function CaseCard({ c }) {
           <span>{icon}</span>
           {c.category}
         </span>
-        <span className={`badge border ${diffStyle} flex-shrink-0`}>
+        <span className={`badge border ${diffStyle} flex-shrink-0 shadow-sm`}>
           {c.difficulty}
         </span>
       </div>

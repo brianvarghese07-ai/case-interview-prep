@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import casesData from '../public/data/cases.json'
+import { getAllCases } from '../lib/cases'
 import Sidebar from './components/Sidebar'
 import CaseGrid from './components/CaseGrid'
+
+const casesData = getAllCases()
 
 // ── Pre-compute all unique filter options ──────────────────────────────────────
 const ALL_COMPANIES   = [...new Set(casesData.map((c) => c.company))].sort()
@@ -61,31 +63,33 @@ export default function HomePage() {
   }, [filters])
 
   return (
-    <div>
+    <div className="relative">
       {/* ── Hero Banner ───────────────────────────────────────────────────── */}
-      <section className="bg-white border-b border-slate-200">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-10 lg:py-12">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-700 bg-brand-50 border border-brand-200 rounded-full px-3 py-1 mb-4">
+      <section className="relative overflow-hidden border-b border-slate-200/80">
+        <div className="absolute -top-24 -left-10 w-72 h-72 rounded-full bg-brand-200/40 blur-3xl" />
+        <div className="absolute -top-32 right-0 w-[22rem] h-[22rem] rounded-full bg-orange-200/45 blur-3xl" />
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-12 lg:py-14 relative">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-700 bg-white/85 border border-brand-200 rounded-full px-3 py-1 mb-4 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
               IFSA SSC Casebook 2025
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
+            <h1 className="font-display text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
               Case Interview
-              <span className="text-brand-600"> Prep Library</span>
+              <span className="text-brand-700"> Prep Library</span>
             </h1>
-            <p className="text-slate-500 text-base leading-relaxed">
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
               Browse {casesData.length} real interview transcripts from McKinsey, BCG, Bain and more.
               Filter by case type, company, and difficulty — then self-grade with the reveal solution feature.
             </p>
           </div>
 
           {/* Stats row */}
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl">
+          <div className="mt-9 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl">
             {STATS.map((s) => (
-              <div key={s.label} className="bg-slate-50 rounded-xl px-4 py-3 border border-slate-200">
+              <div key={s.label} className="card px-4 py-4">
                 <p className="text-2xl font-bold text-brand-700">{s.value}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{s.label}</p>
+                <p className="text-xs text-slate-500 mt-1">{s.label}</p>
               </div>
             ))}
           </div>
@@ -115,18 +119,18 @@ export default function HomePage() {
       </div>
 
       {/* ── About Section ─────────────────────────────────────────────────── */}
-      <section id="about" className="border-t border-slate-200 bg-white">
+      <section id="about" className="border-t border-slate-200/80 bg-white/60">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-12">
           <div className="max-w-3xl">
-            <h2 className="text-xl font-bold text-slate-900 mb-4">How to use this platform</h2>
+            <h2 className="font-display text-2xl font-bold text-slate-900 mb-6">How to use this platform</h2>
             <div className="grid sm:grid-cols-3 gap-6">
               {[
                 { step: '01', title: 'Pick a case', desc: 'Use the filters to find a case matching your target company, industry, or difficulty level.' },
                 { step: '02', title: 'Read the prompt', desc: "The interviewer's question is shown immediately. Take 2–3 minutes to structure your thinking." },
                 { step: '03', title: 'Reveal & grade', desc: "Click 'Reveal Solution' to compare your approach with the successful candidate's response." },
               ].map((item) => (
-                <div key={item.step} className="flex gap-4">
-                  <div className="text-2xl font-black text-brand-200 flex-shrink-0">{item.step}</div>
+                <div key={item.step} className="card p-4 flex gap-4">
+                  <div className="text-2xl font-black text-brand-300 flex-shrink-0">{item.step}</div>
                   <div>
                     <p className="font-semibold text-slate-800 mb-1">{item.title}</p>
                     <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
@@ -139,7 +143,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 text-xs py-6 px-4 sm:px-6">
+      <footer className="bg-slate-950 text-slate-400 text-xs py-6 px-4 sm:px-6">
         <div className="max-w-screen-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>© 2025 IFSA SSC — Case Interview Prep Platform</p>
           <p>Built with Next.js · Data from IFSA SSC Casebook 2025</p>

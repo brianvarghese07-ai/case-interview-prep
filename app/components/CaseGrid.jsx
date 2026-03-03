@@ -12,7 +12,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
   return (
     <div className="flex-1 flex flex-col min-w-0">
       {/* Toolbar */}
-      <div className="sticky top-14 z-30 bg-slate-50/90 backdrop-blur-sm border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center gap-3">
+      <div className="sticky top-16 z-30 bg-white/70 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center gap-3">
         {/* Search */}
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
@@ -21,7 +21,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
             placeholder="Search cases, companies, industries…"
             value={filters.search ?? ''}
             onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
-            className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-slate-400 transition-shadow"
+            className="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-white/95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-slate-400 transition-shadow"
           />
         </div>
 
@@ -31,7 +31,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
         </p>
 
         {/* View toggle */}
-        <div className="flex items-center gap-0.5 bg-white border border-slate-200 rounded-lg p-0.5">
+        <div className="flex items-center gap-0.5 bg-white border border-slate-200 rounded-xl p-0.5 shadow-sm">
           <button
             onClick={() => setView('grid')}
             className={`p-1.5 rounded-md transition-colors ${view === 'grid' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`}

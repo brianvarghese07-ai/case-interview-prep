@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation'
-import casesData from '../../../public/data/cases.json'
+import { getAllCases } from '../../../lib/cases'
 import CasePractice from '../../components/CasePractice'
+
+const casesData = getAllCases()
 
 export async function generateStaticParams() {
   return casesData.map((c) => ({ id: String(c.id) }))

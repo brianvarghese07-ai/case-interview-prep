@@ -1,29 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --bg: #f4f7fb;
+    --ink: #0c1a2f;
+    --surface: #ffffff;
+    --surface-2: #f8fbff;
+    --border: #d5e2f4;
+    --brand: #0f5bd8;
+    --brand-soft: #e8f0ff;
+    --accent: #ea580c;
+  }
+
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-slate-50 text-slate-900;
+    @apply text-slate-900;
+    background:
+      radial-gradient(900px 360px at 12% -2%, #d8e8ff 0%, transparent 60%),
+      radial-gradient(900px 360px at 88% -8%, #ffe6d8 0%, transparent 55%),
+      var(--bg);
+    color: var(--ink);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Sora', system-ui, sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white border border-slate-200 rounded-xl shadow-sm;
+    @apply rounded-2xl border shadow-sm;
+    background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+    border-color: var(--border);
+    box-shadow: 0 8px 24px rgba(15, 42, 90, 0.06);
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700
-           text-white font-medium text-sm px-4 py-2 rounded-lg
-           transition-colors duration-150 cursor-pointer;
+    @apply inline-flex items-center gap-2 text-white font-medium text-sm px-4 py-2 rounded-xl
+           transition-all duration-200 cursor-pointer;
+    background: linear-gradient(135deg, #0f5bd8 0%, #0b4cbc 100%);
+    box-shadow: 0 8px 18px rgba(15, 91, 216, 0.28);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(15, 91, 216, 0.34);
   }
 
   .badge {

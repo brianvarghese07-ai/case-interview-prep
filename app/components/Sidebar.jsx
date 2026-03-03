@@ -22,9 +22,9 @@ const CATEGORY_ICONS = {
 function FilterSection({ title, children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen)
   return (
-    <div className="border-b border-slate-100 last:border-b-0">
+    <div className="border-b border-slate-100/90 last:border-b-0">
       <button
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-50 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/40 transition-colors"
         onClick={() => setOpen(!open)}
       >
         <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
@@ -44,7 +44,7 @@ function FilterSection({ title, children, defaultOpen = true }) {
 /** A single filter pill/checkbox row */
 function FilterOption({ label, checked, count, colorClass, icon, onChange }) {
   return (
-    <label className="flex items-center gap-2.5 px-1 py-1.5 rounded-lg cursor-pointer hover:bg-slate-50 group transition-colors">
+    <label className="flex items-center gap-2.5 px-1 py-1.5 rounded-lg cursor-pointer hover:bg-brand-50/40 group transition-colors">
       <input
         type="checkbox"
         className="rounded border-slate-300 text-brand-600 w-3.5 h-3.5 cursor-pointer focus:ring-brand-500"
@@ -100,7 +100,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
   const SidebarContent = () => (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+      <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between bg-white/70">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="w-4 h-4 text-brand-600" />
           <span className="font-semibold text-sm text-slate-800">Filters</span>
@@ -119,7 +119,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       </div>
 
       {/* Case count */}
-      <div className="px-4 py-2.5 bg-brand-50 border-b border-brand-100">
+      <div className="px-4 py-2.5 bg-brand-50/80 border-b border-brand-100">
         <p className="text-xs text-brand-700">
           Showing <span className="font-bold">{totalVisible}</span> of{' '}
           <span className="font-bold">{totalAll}</span> cases
@@ -224,7 +224,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       )}
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 bg-white border-r border-slate-200 min-h-[calc(100vh-3.5rem)] sticky top-14">
+      <aside className="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 bg-white/70 border-r border-slate-200 min-h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-sm">
         <SidebarContent />
       </aside>
     </>
