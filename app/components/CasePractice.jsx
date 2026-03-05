@@ -48,26 +48,41 @@ function classifySpeaker(line) {
   const candidateMatch = trimmed.match(/^(?:C|Candidate)\s*[:\-]\s*(.+)$/i)
   if (candidateMatch) return { speaker: 'candidate', text: candidateMatch[1].trim() }
 
-  // Heuristic cues for interviewer prompts/acknowledgements in current extracted text.
-  if (/^(Sure|Alright|Go ahead|Fair|Correct|Great|Thank you|Understood|Yes|No)\b/i.test(trimmed)) {
-    return { speaker: 'interviewer', text: trimmed }
-  }
-
-  if (
-    trimmed.endsWith('?') &&
-    /^(Can you|Could you|Would you|Do you|What|Why|How|Which|Where|When|Let's|Please)\b/i.test(trimmed)
-  ) {
-    return { speaker: 'interviewer', text: trimmed }
-  }
-
-  // Default to candidate for solution body lines.
+  // For unlabeled lines, default to candidate to preserve candidate-led clarifying questions.
   return { speaker: 'candidate', text: trimmed }
 }
 
 function SolutionDialogue({ text }) {
   if (!text) return <p className="text-slate-400 italic">Not available.</p>
 
-  const lines = text.split('\n').map((line) => classifySpeaker(line))
+  const rawLines = text.split('\n')
+  const lines = []
+
+  for (let i = 0; i < rawLines.length; i += 1) {
+    const current = rawLines[i].trim()
+    const prev = i > 0 ? rawLines[i - 1].trim() : ''
+    const classified = classifySpeaker(rawLines[i])
+
+    if (classified.speaker !== 'candidate') {
+      lines.push(classified)
+      continue
+    }
+
+    // Fallback for unlabeled transcripts:
+    // very short acknowledgement lines right after a question are likely interviewer responses.
+    const shortWordCount = current ? current.split(/\s+/).length : 0
+    const looksLikeShortReply =
+      shortWordCount > 0 &&
+      shortWordCount <= 8 &&
+      !current.includes('?') &&
+      /^[A-Z0-9"']/.test(current)
+
+    if (looksLikeShortReply && prev.endsWith('?')) {
+      lines.push({ speaker: 'interviewer', text: current })
+    } else {
+      lines.push(classified)
+    }
+  }
 
   return (
     <div className="space-y-2">
