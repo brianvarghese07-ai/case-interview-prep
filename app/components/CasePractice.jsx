@@ -37,6 +37,62 @@ function TextBlock({ text, className = '' }) {
   )
 }
 
+function classifySpeaker(line) {
+  const trimmed = line.trim()
+  if (!trimmed) return { speaker: 'none', text: '' }
+
+  // Explicit labels from source transcripts.
+  const interviewerMatch = trimmed.match(/^(?:I|Interviewer)\s*[:\-]\s*(.+)$/i)
+  if (interviewerMatch) return { speaker: 'interviewer', text: interviewerMatch[1].trim() }
+
+  const candidateMatch = trimmed.match(/^(?:C|Candidate)\s*[:\-]\s*(.+)$/i)
+  if (candidateMatch) return { speaker: 'candidate', text: candidateMatch[1].trim() }
+
+  // Heuristic cues for interviewer prompts/acknowledgements in current extracted text.
+  if (/^(Sure|Alright|Go ahead|Fair|Correct|Great|Thank you|Understood|Yes|No)\b/i.test(trimmed)) {
+    return { speaker: 'interviewer', text: trimmed }
+  }
+
+  if (
+    trimmed.endsWith('?') &&
+    /^(Can you|Could you|Would you|Do you|What|Why|How|Which|Where|When|Let's|Please)\b/i.test(trimmed)
+  ) {
+    return { speaker: 'interviewer', text: trimmed }
+  }
+
+  // Default to candidate for solution body lines.
+  return { speaker: 'candidate', text: trimmed }
+}
+
+function SolutionDialogue({ text }) {
+  if (!text) return <p className="text-slate-400 italic">Not available.</p>
+
+  const lines = text.split('\n').map((line) => classifySpeaker(line))
+
+  return (
+    <div className="space-y-2">
+      {lines.map((line, idx) => {
+        if (line.speaker === 'none') {
+          return <div key={idx} className="h-2" />
+        }
+
+        return (
+          <p
+            key={idx}
+            className={`leading-relaxed text-sm sm:text-[0.95rem] whitespace-pre-wrap ${
+              line.speaker === 'candidate'
+                ? 'font-semibold text-slate-900'
+                : 'font-normal text-slate-700'
+            }`}
+          >
+            {line.text}
+          </p>
+        )
+      })}
+    </div>
+  )
+}
+
 export default function CasePractice({ c, prev, next, total }) {
   const [revealed, setRevealed] = useState(false)
   const [timerStarted, setTimerStarted] = useState(false)
@@ -195,7 +251,7 @@ export default function CasePractice({ c, prev, next, total }) {
                     Candidate's Framework & Answer
                   </p>
                 </div>
-                <TextBlock text={c.solution} />
+                <SolutionDialogue text={c.solution} />
               </div>
             )}
 
