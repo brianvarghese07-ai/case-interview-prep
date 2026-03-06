@@ -138,12 +138,15 @@ export default function CasePractice({ c, prev, next, total }) {
   const diffStyle = DIFFICULTY_STYLES[c.difficulty] ?? DIFFICULTY_STYLES.Medium
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6">
+    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 relative">
+      <div className="absolute -top-20 left-8 w-52 h-52 rounded-full bg-brand-200/40 blur-3xl pointer-events-none animate-float-slow" />
+      <div className="absolute -top-8 right-8 w-60 h-60 rounded-full bg-orange-200/40 blur-3xl pointer-events-none animate-float-slow [animation-delay:1s]" />
+
       {/* ── Breadcrumb nav ─────────────────────────────────────────────── */}
-      <div className="flex items-center gap-2 py-4 text-sm">
+      <div className="relative z-10 flex items-center gap-2 py-4 text-sm">
         <Link
           href="/"
-          className="flex items-center gap-1.5 text-slate-500 hover:text-brand-600 transition-colors"
+          className="inline-flex items-center gap-1.5 text-slate-600 hover:text-brand-700 transition-colors rounded-lg px-2.5 py-1.5 hover:bg-white/80"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Case Library
@@ -152,37 +155,37 @@ export default function CasePractice({ c, prev, next, total }) {
         <span className="text-slate-700 font-medium truncate">{c.title}</span>
       </div>
 
-      <div className="pb-16 grid lg:grid-cols-[1fr_300px] xl:grid-cols-[1fr_320px] gap-6 items-start">
+      <div className="relative z-10 pb-16 grid lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_340px] gap-6 items-start">
         {/* ── Main Panel ─────────────────────────────────────────────────── */}
-        <div className="space-y-6">
+        <div className="space-y-6 animate-rise">
 
           {/* Case header */}
-          <div className="card p-6">
+          <div className="card p-6 sm:p-7">
             <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
               <div>
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-[0.14em] mb-2">
                   {CATEGORY_ICONS[c.category]} {c.category}
                 </p>
-                <h1 className="text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
+                <h1 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">
                   {c.title}
                 </h1>
               </div>
-              <span className={`badge border text-sm px-3 py-1 ${diffStyle}`}>
+              <span className={`badge border text-sm px-3 py-1 shadow-sm ${diffStyle}`}>
                 {c.difficulty}
               </span>
             </div>
 
             {/* Metadata pills */}
             <div className="flex flex-wrap gap-3">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
+              <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
                 <Building2 className="w-3.5 h-3.5 text-brand-500" />
                 <span className="font-medium text-slate-700">{c.company}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
+              <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
                 <Tag className="w-3.5 h-3.5 text-brand-500" />
                 {c.industry}
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
+              <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
                 <Layers className="w-3.5 h-3.5 text-brand-500" />
                 {c.category}
               </div>
@@ -191,9 +194,9 @@ export default function CasePractice({ c, prev, next, total }) {
 
           {/* ── INTERVIEWER PROMPT ─────────────────────────────────────── */}
           <div className="card overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <div className="px-5 py-4 border-b border-slate-100/90 flex items-center justify-between bg-white/80">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center flex-shrink-0 shadow-sm">
                   <span className="text-white text-xs font-bold">I</span>
                 </div>
                 <h2 className="font-semibold text-slate-800">Interviewer Prompt</h2>
@@ -208,7 +211,7 @@ export default function CasePractice({ c, prev, next, total }) {
                 {!timerStarted && (
                   <button
                     onClick={startTimer}
-                    className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-600 border border-slate-200 hover:border-brand-300 rounded-lg px-2.5 py-1.5 bg-white transition-all"
+                    className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-600 border border-slate-200 hover:border-brand-300 rounded-xl px-2.5 py-1.5 bg-white transition-all"
                   >
                     <Clock className="w-3.5 h-3.5" />
                     Start Timer
@@ -216,7 +219,7 @@ export default function CasePractice({ c, prev, next, total }) {
                 )}
               </div>
             </div>
-            <div className="px-5 py-5 bg-brand-50/30">
+            <div className="px-5 py-5 bg-gradient-to-b from-brand-50/50 to-white">
               <TextBlock text={c.prompt} />
             </div>
           </div>
@@ -229,13 +232,13 @@ export default function CasePractice({ c, prev, next, total }) {
               className={`w-full px-5 py-4 flex items-center justify-between gap-3 border-b transition-colors ${
                 revealed
                   ? 'bg-emerald-50 border-emerald-200'
-                  : 'bg-slate-800 hover:bg-slate-700'
+                  : 'bg-slate-900 hover:bg-slate-800'
               }`}
             >
               <div className="flex items-center gap-3">
                 {/* C badge */}
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  revealed ? 'bg-emerald-600' : 'bg-slate-600'
+                  revealed ? 'bg-emerald-600' : 'bg-slate-700'
                 }`}>
                   <span className="text-white text-xs font-bold">C</span>
                 </div>
@@ -259,7 +262,7 @@ export default function CasePractice({ c, prev, next, total }) {
 
             {/* Solution content */}
             {revealed && (
-              <div className="px-5 py-5 bg-emerald-50/40 border-l-4 border-emerald-400 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="px-5 py-5 bg-gradient-to-b from-emerald-50/50 to-white border-l-4 border-emerald-400 animate-in fade-in slide-in-from-top-2 duration-300">
                 <div className="flex items-center gap-2 mb-4">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider">
@@ -312,7 +315,7 @@ export default function CasePractice({ c, prev, next, total }) {
         </div>
 
         {/* ── Right Side Panel ──────────────────────────────────────────── */}
-        <div className="space-y-4 lg:sticky lg:top-20">
+        <div className="space-y-4 lg:sticky lg:top-24 animate-rise [animation-delay:120ms]">
           {/* Case info card */}
           <div className="card p-5">
             <div className="flex items-center gap-2 mb-4">
