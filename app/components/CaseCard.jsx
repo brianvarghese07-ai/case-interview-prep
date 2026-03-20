@@ -41,10 +41,15 @@ export default function CaseCard({ c }) {
     >
       {/* Top Row: Category + Difficulty */}
       <div className="flex items-start justify-between gap-2">
-        <span className="text-xs font-semibold text-slate-500 flex items-center gap-1">
-          <span>{icon}</span>
-          {c.category}
-        </span>
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-xs font-semibold text-slate-500 flex items-center gap-1">
+            <span>{icon}</span>
+            {c.category}
+          </span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+            {c.year}
+          </span>
+        </div>
         <span className={`badge border ${diffStyle} flex-shrink-0 shadow-sm`}>
           {c.difficulty}
         </span>

@@ -37,19 +37,43 @@ function TextBlock({ text, className = '' }) {
   )
 }
 
-function classifySpeaker(line) {
+function parseExplicitSpeaker(line) {
   const trimmed = line.trim()
-  if (!trimmed) return { speaker: 'none', text: '' }
+  if (!trimmed) return { speaker: 'none', text: '', explicit: false }
 
   // Explicit labels from source transcripts.
   const interviewerMatch = trimmed.match(/^(?:I|Interviewer)\s*[:\-]\s*(.+)$/i)
-  if (interviewerMatch) return { speaker: 'interviewer', text: interviewerMatch[1].trim() }
+  if (interviewerMatch) return { speaker: 'interviewer', text: interviewerMatch[1].trim(), explicit: true }
 
   const candidateMatch = trimmed.match(/^(?:C|Candidate)\s*[:\-]\s*(.+)$/i)
-  if (candidateMatch) return { speaker: 'candidate', text: candidateMatch[1].trim() }
+  if (candidateMatch) return { speaker: 'candidate', text: candidateMatch[1].trim(), explicit: true }
 
-  // For unlabeled lines, default to candidate to preserve candidate-led clarifying questions.
-  return { speaker: 'candidate', text: trimmed }
+  return { speaker: null, text: trimmed, explicit: false }
+}
+
+function looksLikeInterviewerReply(text) {
+  return /^(?:yes|no|both\.?$|all\.?$|sure|right|okay|ok|great|fair|understood|please|go ahead|you may|sounds good|that(?:'s| is) (?:fine|right|reasonable)|consider|just|only|include|correct|exactly|good|proceed|try|fair assumption|interesting|alright|all right)/i.test(text.trim())
+}
+
+function splitMixedTurn(text) {
+  const firstQuestionMark = text.indexOf('?')
+  const firstPeriod = text.indexOf('.')
+
+  if (firstQuestionMark === -1 || firstPeriod === -1 || firstPeriod > firstQuestionMark) {
+    return null
+  }
+
+  const interviewerText = text.slice(0, firstPeriod + 1).trim()
+  const candidateText = text.slice(firstPeriod + 1).trim()
+
+  if (!interviewerText || !candidateText || !looksLikeInterviewerReply(interviewerText)) {
+    return null
+  }
+
+  return {
+    interviewerText,
+    candidateText,
+  }
 }
 
 function SolutionDialogue({ text }) {
@@ -57,30 +81,52 @@ function SolutionDialogue({ text }) {
 
   const rawLines = text.split('\n')
   const lines = []
+  let lastSpeaker = null
+  let lastText = ''
 
   for (let i = 0; i < rawLines.length; i += 1) {
-    const current = rawLines[i].trim()
-    const prev = i > 0 ? rawLines[i - 1].trim() : ''
-    const classified = classifySpeaker(rawLines[i])
+    const classified = parseExplicitSpeaker(rawLines[i])
 
-    if (classified.speaker !== 'candidate') {
+    if (classified.speaker === 'none') {
       lines.push(classified)
       continue
     }
 
-    // Fallback for unlabeled transcripts:
-    // very short acknowledgement lines right after a question are likely interviewer responses.
-    const shortWordCount = current ? current.split(/\s+/).length : 0
-    const looksLikeShortReply =
-      shortWordCount > 0 &&
-      shortWordCount <= 8 &&
-      !current.includes('?') &&
-      /^[A-Z0-9"']/.test(current)
-
-    if (looksLikeShortReply && prev.endsWith('?')) {
-      lines.push({ speaker: 'interviewer', text: current })
-    } else {
+    if (classified.explicit) {
       lines.push(classified)
+      lastSpeaker = classified.speaker
+      lastText = classified.text
+      continue
+    }
+
+    const current = classified.text
+    const wordCount = current.split(/\s+/).filter(Boolean).length
+    const prevWasQuestion = lastText.endsWith('?')
+    const shortReply = wordCount > 0 && wordCount <= 10
+    const interviewerCue = looksLikeInterviewerReply(current)
+    const mixedTurn = prevWasQuestion ? splitMixedTurn(current) : null
+
+    if (mixedTurn) {
+      lines.push({ speaker: 'interviewer', text: mixedTurn.interviewerText })
+      lines.push({ speaker: 'candidate', text: mixedTurn.candidateText })
+      lastSpeaker = 'candidate'
+      lastText = mixedTurn.candidateText
+    } else if (prevWasQuestion) {
+      lines.push({ speaker: 'interviewer', text: current })
+      lastSpeaker = 'interviewer'
+      lastText = current
+    } else if (lastSpeaker === 'interviewer') {
+      lines.push({ speaker: 'candidate', text: current })
+      lastSpeaker = 'candidate'
+      lastText = current
+    } else if (lastSpeaker === 'candidate' && shortReply && interviewerCue) {
+      lines.push({ speaker: 'interviewer', text: current })
+      lastSpeaker = 'interviewer'
+      lastText = current
+    } else {
+      lines.push({ speaker: 'candidate', text: current })
+      lastSpeaker = 'candidate'
+      lastText = current
     }
   }
 
@@ -188,6 +234,10 @@ export default function CasePractice({ c, prev, next, total }) {
               <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
                 <Layers className="w-3.5 h-3.5 text-brand-500" />
                 {c.category}
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+                <BarChart2 className="w-3.5 h-3.5 text-brand-500" />
+                {c.year}
               </div>
             </div>
           </div>
@@ -327,8 +377,10 @@ export default function CasePractice({ c, prev, next, total }) {
                 { label: 'Company',    value: c.company },
                 { label: 'Industry',   value: c.industry },
                 { label: 'Type',       value: c.category },
+                { label: 'Year',       value: c.year },
                 { label: 'Difficulty', value: c.difficulty },
-                { label: 'Source',     value: c.sourceSection },
+                { label: 'Source Book', value: c.sourceBook },
+                { label: 'Section',    value: c.sourceSection },
                 { label: 'Case No.',   value: `${c.id} / ${total}` },
               ].map(({ label, value }) => (
                 <div key={label} className="flex items-start justify-between gap-3">

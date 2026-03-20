@@ -70,7 +70,7 @@ function FilterOption({ label, checked, count, colorClass, icon, onChange }) {
  * Sidebar
  *
  * Props:
- *   options    – { companies, industries, categories, difficulties } all arrays of strings
+ *   options    – { companies, industries, categories, difficulties, years } all arrays of strings
  *   counts     – { company: {name: count}, ... }
  *   filters    – current selected filters state
  *   setFilters – state setter
@@ -92,10 +92,11 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
     (filters.companies?.length ?? 0) +
     (filters.industries?.length ?? 0) +
     (filters.categories?.length ?? 0) +
-    (filters.difficulties?.length ?? 0)
+    (filters.difficulties?.length ?? 0) +
+    (filters.years?.length ?? 0)
 
   const clearAll = () =>
-    setFilters({ companies: [], industries: [], categories: [], difficulties: [], search: '' })
+    setFilters({ companies: [], industries: [], categories: [], difficulties: [], years: [], search: '' })
 
   const SidebarContent = () => (
     <div className="h-full flex flex-col">
@@ -152,6 +153,19 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
               count={counts.difficulty?.[d]}
               checked={filters.difficulties?.includes(d) ?? false}
               onChange={() => toggle('difficulties', d)}
+            />
+          ))}
+        </FilterSection>
+
+        {/* Year */}
+        <FilterSection title="Casebook Year" defaultOpen={true}>
+          {options.years.map((year) => (
+            <FilterOption
+              key={year}
+              label={year}
+              count={counts.year?.[year]}
+              checked={filters.years?.includes(year) ?? false}
+              onChange={() => toggle('years', year)}
             />
           ))}
         </FilterSection>

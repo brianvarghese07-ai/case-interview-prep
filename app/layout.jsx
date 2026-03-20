@@ -1,9 +1,9 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Case Prep — IFSA SSC Casebook 2025',
+  title: 'Case Prep — IFSA Casebooks 2023-2025',
   description:
-    'A searchable library of consulting case interviews from the IFSA St. Stephen\'s Casebook 2025. Filter by company, industry, and difficulty to practise your case frameworks.',
+    'A searchable library of consulting case interviews from the IFSA 2023, 2024, and 2025 casebooks. Filter by year, company, industry, and difficulty to practise your case frameworks.',
 }
 
 export default function RootLayout({ children }) {
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
                 <p className="text-base font-semibold text-slate-900 group-hover:text-brand-700 transition-colors">
                   Case Interview Prep
                 </p>
-                <p className="text-xs text-slate-500 hidden sm:block">IFSA SSC Casebook 2025</p>
+                <p className="text-xs text-slate-500 hidden sm:block">IFSA Casebooks 2023-2025</p>
               </div>
             </a>
 

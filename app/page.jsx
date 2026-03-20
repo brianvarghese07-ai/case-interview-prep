@@ -11,6 +11,8 @@ const casesData = getAllCases()
 const ALL_COMPANIES   = [...new Set(casesData.map((c) => c.company))].sort()
 const ALL_INDUSTRIES  = [...new Set(casesData.map((c) => c.industry))].sort()
 const ALL_CATEGORIES  = [...new Set(casesData.map((c) => c.category))].sort()
+const ALL_YEARS = [...new Set(casesData.map((c) => String(c.year)).filter(Boolean))]
+  .sort((a, b) => Number(b) - Number(a))
 const ALL_DIFFICULTIES = ['Easy', 'Medium', 'Hard']
 
 function computeCounts(data) {
@@ -18,13 +20,15 @@ function computeCounts(data) {
   const industry   = {}
   const category   = {}
   const difficulty = {}
+  const year       = {}
   for (const c of data) {
     company[c.company]       = (company[c.company]       ?? 0) + 1
     industry[c.industry]     = (industry[c.industry]     ?? 0) + 1
     category[c.category]     = (category[c.category]     ?? 0) + 1
     difficulty[c.difficulty] = (difficulty[c.difficulty] ?? 0) + 1
+    year[String(c.year)]     = (year[String(c.year)]     ?? 0) + 1
   }
-  return { company, industry, category, difficulty }
+  return { company, industry, category, difficulty, year }
 }
 
 const ALL_COUNTS = computeCounts(casesData)
@@ -32,8 +36,8 @@ const ALL_COUNTS = computeCounts(casesData)
 // ── Hero stats ─────────────────────────────────────────────────────────────────
 const STATS = [
   { label: 'Total Cases',    value: casesData.length },
+  { label: 'Casebooks',      value: ALL_YEARS.length },
   { label: 'Companies',      value: ALL_COMPANIES.length },
-  { label: 'Case Types',     value: ALL_CATEGORIES.length },
   { label: 'Industries',     value: ALL_INDUSTRIES.length },
 ]
 
@@ -50,6 +54,7 @@ export default function HomePage() {
     industries:   [],
     categories:   [],
     difficulties: [],
+    years:        [],
   })
 
   // Apply filters
@@ -59,9 +64,10 @@ export default function HomePage() {
       if (filters.industries.length  && !filters.industries.includes(c.industry))   return false
       if (filters.categories.length  && !filters.categories.includes(c.category))   return false
       if (filters.difficulties.length && !filters.difficulties.includes(c.difficulty)) return false
+      if (filters.years.length && !filters.years.includes(String(c.year))) return false
       if (filters.search) {
         const q = filters.search.toLowerCase()
-        const haystack = `${c.title} ${c.company} ${c.industry} ${c.category} ${c.prompt}`.toLowerCase()
+        const haystack = `${c.title} ${c.company} ${c.industry} ${c.category} ${c.prompt} ${c.sourceBook ?? ''} ${c.year ?? ''}`.toLowerCase()
         if (!haystack.includes(q)) return false
       }
       return true
@@ -79,15 +85,15 @@ export default function HomePage() {
             <div className="max-w-3xl animate-rise">
               <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-700 bg-white/90 border border-brand-200 rounded-full px-3 py-1 mb-4 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
-                IFSA SSC Casebook 2025
+                IFSA Casebooks 2023-2025
               </div>
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight leading-[1.05] mb-5">
                 Practice Like a
                 <span className="text-brand-700"> Top-Tier Consultant</span>
               </h1>
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
-                Browse {casesData.length} real interview transcripts from McKinsey, BCG, Bain and more.
-                Filter by case type, company, and difficulty, then self-grade with structured reveal mode.
+                Browse {casesData.length} real interview cases from the IFSA 2023, 2024, and 2025 casebooks.
+                Filter by year, case type, company, and difficulty, then self-grade with structured reveal mode.
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <a href="#case-library" className="btn-primary">
@@ -160,6 +166,7 @@ export default function HomePage() {
                 industries:   ALL_INDUSTRIES,
                 categories:   ALL_CATEGORIES,
                 difficulties: ALL_DIFFICULTIES,
+                years:        ALL_YEARS,
               }}
               counts={ALL_COUNTS}
               filters={filters}
@@ -209,7 +216,7 @@ export default function HomePage() {
       <footer className="bg-slate-950 text-slate-400 text-xs py-6 px-4 sm:px-6">
         <div className="max-w-screen-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>© 2025 IFSA SSC — Case Interview Prep Platform</p>
-          <p>Built with Next.js · Data from IFSA SSC Casebook 2025</p>
+          <p>Built with Next.js · Data from IFSA casebooks 2023-2025</p>
         </div>
       </footer>
     </div>

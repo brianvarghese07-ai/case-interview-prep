@@ -18,7 +18,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
           <input
             type="text"
-            placeholder="Search cases, companies, industries…"
+            placeholder="Search cases, companies, industries, years…"
             value={filters.search ?? ''}
             onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
             className="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-white/95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-slate-400 transition-shadow"
@@ -62,7 +62,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
             </div>
             <button
               onClick={() =>
-                setFilters({ companies: [], industries: [], categories: [], difficulties: [], search: '' })
+                setFilters({ companies: [], industries: [], categories: [], difficulties: [], years: [], search: '' })
               }
               className="btn-primary"
             >
@@ -106,6 +106,8 @@ function ListRow({ c }) {
       <div className="flex-1 min-w-0">
         <div className="flex flex-wrap items-center gap-2 mb-0.5">
           <span className="text-xs text-slate-400">{c.category}</span>
+          <span className="text-xs text-slate-300">·</span>
+          <span className="text-xs text-slate-500">{c.year}</span>
           <span className="text-xs text-slate-300">·</span>
           <span className="text-xs font-medium text-slate-600">{c.company}</span>
           <span className="text-xs text-slate-300">·</span>
