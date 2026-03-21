@@ -44,10 +44,10 @@ function FilterSection({ title, children, defaultOpen = true }) {
 /** A single filter pill/checkbox row */
 function FilterOption({ label, checked, count, colorClass, icon, onChange }) {
   return (
-    <label className="flex items-center gap-2.5 px-1 py-1.5 rounded-lg cursor-pointer hover:bg-brand-50/40 group transition-colors">
+    <label className="flex items-center gap-2.5 px-1.5 py-2 rounded-lg cursor-pointer hover:bg-brand-50/40 group transition-colors">
       <input
         type="checkbox"
-        className="rounded border-slate-300 text-brand-600 w-3.5 h-3.5 cursor-pointer focus:ring-brand-500"
+        className="rounded border-slate-300 text-brand-600 w-4 h-4 cursor-pointer focus:ring-brand-500"
         checked={checked}
         onChange={onChange}
       />
@@ -99,7 +99,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
     setFilters({ companies: [], industries: [], categories: [], difficulties: [], years: [], search: '' })
 
   const SidebarContent = () => (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col relative">
       {/* Header */}
       <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between bg-white/70">
         <div className="flex items-center gap-2">
@@ -128,7 +128,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       </div>
 
       {/* Scrollable filter area */}
-      <div className="flex-1 overflow-y-auto sidebar-scroll">
+      <div className="flex-1 overflow-y-auto sidebar-scroll pb-24 lg:pb-0">
         {/* Category */}
         <FilterSection title="Case Type">
           {options.categories.map((cat) => (
@@ -196,6 +196,23 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
           ))}
         </FilterSection>
       </div>
+
+      <div className="lg:hidden absolute inset-x-0 bottom-0 border-t border-slate-200 bg-white/95 backdrop-blur-md px-4 py-3 safe-bottom">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={clearAll}
+            className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600"
+          >
+            Clear all
+          </button>
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="btn-primary flex-1 justify-center py-3"
+          >
+            Apply Filters
+          </button>
+        </div>
+      </div>
     </div>
   )
 
@@ -205,7 +222,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       <div className="lg:hidden px-4 py-2 flex items-center gap-2">
         <button
           onClick={() => setMobileOpen(true)}
-          className="flex items-center gap-2 text-sm font-medium border border-slate-200 rounded-lg px-3 py-1.5 bg-white hover:bg-slate-50 transition-colors"
+          className="flex items-center gap-2 text-sm font-medium border border-slate-200 rounded-xl px-4 py-2.5 bg-white hover:bg-slate-50 transition-colors shadow-sm"
         >
           <SlidersHorizontal className="w-4 h-4 text-brand-600" />
           Filters
@@ -222,9 +239,15 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute left-0 top-0 bottom-0 w-80 bg-white shadow-xl">
+          <div className="absolute inset-x-0 bottom-0 max-h-[88vh] rounded-t-[1.75rem] bg-white shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-center pt-3">
+              <div className="h-1.5 w-12 rounded-full bg-slate-200" />
+            </div>
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
-              <span className="font-semibold text-slate-800">Filters</span>
+              <div>
+                <span className="font-semibold text-slate-800">Filters</span>
+                <p className="text-xs text-slate-500 mt-0.5">Choose what you want to practice</p>
+              </div>
               <button
                 onClick={() => setMobileOpen(false)}
                 className="p-1 hover:bg-slate-100 rounded-md transition-colors"

@@ -30,6 +30,10 @@
     color: var(--ink);
   }
 
+  html {
+    scroll-padding-top: 5rem;
+  }
+
   h1, h2, h3, h4 {
     font-family: 'Sora', system-ui, sans-serif;
     letter-spacing: -0.02em;
@@ -102,4 +106,22 @@
 .sidebar-scroll::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 2px;
+}
+
+.safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+}
+
+@media (max-width: 640px) {
+  body {
+    background:
+      radial-gradient(560px 220px at 10% -2%, #d8e8ff 0%, transparent 55%),
+      radial-gradient(540px 220px at 90% -5%, #ffe6d8 0%, transparent 50%),
+      var(--bg);
+  }
+
+  .card {
+    border-radius: 1.15rem;
+    box-shadow: 0 8px 20px rgba(15, 42, 90, 0.05);
+  }
 }

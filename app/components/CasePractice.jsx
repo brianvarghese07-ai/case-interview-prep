@@ -189,30 +189,30 @@ export default function CasePractice({ c, prev, next, total }) {
       <div className="absolute -top-8 right-8 w-60 h-60 rounded-full bg-orange-200/40 blur-3xl pointer-events-none animate-float-slow [animation-delay:1s]" />
 
       {/* ── Breadcrumb nav ─────────────────────────────────────────────── */}
-      <div className="relative z-10 flex items-center gap-2 py-4 text-sm">
+      <div className="relative z-10 flex items-center gap-2 py-3 sm:py-4 text-sm">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-slate-600 hover:text-brand-700 transition-colors rounded-lg px-2.5 py-1.5 hover:bg-white/80"
+          className="inline-flex items-center gap-1.5 text-slate-600 hover:text-brand-700 transition-colors rounded-lg px-2 py-1.5 hover:bg-white/80 text-xs sm:text-sm"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Case Library
         </Link>
-        <span className="text-slate-300">/</span>
-        <span className="text-slate-700 font-medium truncate">{c.title}</span>
+        <span className="text-slate-300 hidden sm:inline">/</span>
+        <span className="text-slate-700 font-medium truncate hidden sm:inline">{c.title}</span>
       </div>
 
-      <div className="relative z-10 pb-16 grid lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_340px] gap-6 items-start">
+      <div className="relative z-10 pb-24 sm:pb-16 grid lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_340px] gap-4 sm:gap-6 items-start">
         {/* ── Main Panel ─────────────────────────────────────────────────── */}
         <div className="space-y-6 animate-rise">
 
           {/* Case header */}
-          <div className="card p-6 sm:p-7">
-            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+          <div className="card p-4 sm:p-7">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-3 sm:mb-4">
               <div>
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-[0.14em] mb-2">
                   {CATEGORY_ICONS[c.category]} {c.category}
                 </p>
-                <h1 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">
+                <h1 className="font-display text-xl sm:text-3xl font-bold text-slate-900 leading-tight">
                   {c.title}
                 </h1>
               </div>
@@ -222,20 +222,20 @@ export default function CasePractice({ c, prev, next, total }) {
             </div>
 
             {/* Metadata pills */}
-            <div className="flex flex-wrap gap-3">
-              <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
                 <Building2 className="w-3.5 h-3.5 text-brand-500" />
                 <span className="font-medium text-slate-700">{c.company}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
                 <Tag className="w-3.5 h-3.5 text-brand-500" />
                 {c.industry}
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
                 <Layers className="w-3.5 h-3.5 text-brand-500" />
                 {c.category}
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
                 <BarChart2 className="w-3.5 h-3.5 text-brand-500" />
                 {c.year}
               </div>
@@ -243,8 +243,8 @@ export default function CasePractice({ c, prev, next, total }) {
           </div>
 
           {/* ── INTERVIEWER PROMPT ─────────────────────────────────────── */}
-          <div className="card overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100/90 flex items-center justify-between bg-white/80">
+          <div className="card overflow-hidden" id="prompt">
+            <div className="px-4 sm:px-5 py-4 border-b border-slate-100/90 flex items-center justify-between gap-3 bg-white/80">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center flex-shrink-0 shadow-sm">
                   <span className="text-white text-xs font-bold">I</span>
@@ -261,7 +261,7 @@ export default function CasePractice({ c, prev, next, total }) {
                 {!timerStarted && (
                   <button
                     onClick={startTimer}
-                    className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-600 border border-slate-200 hover:border-brand-300 rounded-xl px-2.5 py-1.5 bg-white transition-all"
+                    className="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-600 border border-slate-200 hover:border-brand-300 rounded-xl px-2.5 py-1.5 bg-white transition-all"
                   >
                     <Clock className="w-3.5 h-3.5" />
                     Start Timer
@@ -269,17 +269,17 @@ export default function CasePractice({ c, prev, next, total }) {
                 )}
               </div>
             </div>
-            <div className="px-5 py-5 bg-gradient-to-b from-brand-50/50 to-white">
+            <div className="px-4 sm:px-5 py-4 sm:py-5 bg-gradient-to-b from-brand-50/50 to-white">
               <TextBlock text={c.prompt} />
             </div>
           </div>
 
           {/* ── FRAMEWORK / SOLUTION REVEAL ───────────────────────────── */}
-          <div className="card overflow-hidden">
+          <div className="card overflow-hidden" id="solution">
             {/* Reveal toggle button */}
             <button
               onClick={handleReveal}
-              className={`w-full px-5 py-4 flex items-center justify-between gap-3 border-b transition-colors ${
+              className={`w-full px-4 sm:px-5 py-4 flex items-center justify-between gap-3 border-b transition-colors ${
                 revealed
                   ? 'bg-emerald-50 border-emerald-200'
                   : 'bg-slate-900 hover:bg-slate-800'
@@ -312,7 +312,7 @@ export default function CasePractice({ c, prev, next, total }) {
 
             {/* Solution content */}
             {revealed && (
-              <div className="px-5 py-5 bg-gradient-to-b from-emerald-50/50 to-white border-l-4 border-emerald-400 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="px-4 sm:px-5 py-4 sm:py-5 bg-gradient-to-b from-emerald-50/50 to-white border-l-4 border-emerald-400 animate-in fade-in slide-in-from-top-2 duration-300">
                 <div className="flex items-center gap-2 mb-4">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider">
@@ -336,11 +336,11 @@ export default function CasePractice({ c, prev, next, total }) {
           </div>
 
           {/* ── Navigation arrows ─────────────────────────────────────── */}
-          <div className="flex items-center justify-between gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 pt-2">
             {prev ? (
               <Link
                 href={`/cases/${prev.id}`}
-                className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-brand-600 card px-4 py-2.5 hover:shadow-md transition-all group"
+                className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-brand-600 card px-4 py-3 sm:py-2.5 hover:shadow-md transition-all group"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
                 <div className="text-left">
@@ -352,7 +352,7 @@ export default function CasePractice({ c, prev, next, total }) {
             {next ? (
               <Link
                 href={`/cases/${next.id}`}
-                className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-brand-600 card px-4 py-2.5 hover:shadow-md transition-all group ml-auto"
+                className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-brand-600 card px-4 py-3 sm:py-2.5 hover:shadow-md transition-all group sm:ml-auto"
               >
                 <div className="text-right">
                   <p className="text-xs text-slate-400">Next</p>
@@ -365,14 +365,14 @@ export default function CasePractice({ c, prev, next, total }) {
         </div>
 
         {/* ── Right Side Panel ──────────────────────────────────────────── */}
-        <div className="space-y-4 lg:sticky lg:top-24 animate-rise [animation-delay:120ms]">
+        <div className="space-y-4 lg:sticky lg:top-24 animate-rise [animation-delay:120ms] order-last lg:order-none">
           {/* Case info card */}
-          <div className="card p-5">
+          <div className="card p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <BookOpen className="w-4 h-4 text-brand-600" />
               <h3 className="font-semibold text-sm text-slate-800">Case Details</h3>
             </div>
-            <dl className="space-y-3">
+            <dl className="grid grid-cols-2 gap-x-4 gap-y-3 sm:space-y-3 sm:block">
               {[
                 { label: 'Company',    value: c.company },
                 { label: 'Industry',   value: c.industry },
@@ -383,16 +383,16 @@ export default function CasePractice({ c, prev, next, total }) {
                 { label: 'Section',    value: c.sourceSection },
                 { label: 'Case No.',   value: `${c.id} / ${total}` },
               ].map(({ label, value }) => (
-                <div key={label} className="flex items-start justify-between gap-3">
-                  <dt className="text-xs text-slate-400 flex-shrink-0">{label}</dt>
-                  <dd className="text-xs font-medium text-slate-700 text-right">{value}</dd>
+                <div key={label} className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
+                  <dt className="text-[11px] sm:text-xs text-slate-400 flex-shrink-0">{label}</dt>
+                  <dd className="text-xs font-medium text-slate-700 sm:text-right break-words">{value}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
           {/* Self-assessment guide */}
-          <div className="card p-5">
+          <div className="card p-4 sm:p-5" id="checklist">
             <h3 className="font-semibold text-sm text-slate-800 mb-3">Self-Grading Checklist</h3>
             <ul className="space-y-2.5">
               {[
@@ -412,12 +412,36 @@ export default function CasePractice({ c, prev, next, total }) {
           {/* Back to library */}
           <Link
             href="/"
-            className="flex items-center justify-center gap-2 text-sm font-medium text-slate-600 card p-3 hover:shadow-md hover:text-brand-600 transition-all"
+            className="hidden sm:flex items-center justify-center gap-2 text-sm font-medium text-slate-600 card p-3 hover:shadow-md hover:text-brand-600 transition-all"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Case Library
           </Link>
         </div>
+      </div>
+
+      <div className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur-md px-4 pt-3 pb-3 safe-bottom">
+        <div className="flex items-center gap-2 mb-2">
+          <a href="#prompt" className="flex-1 rounded-xl border border-slate-200 px-3 py-2 text-center text-xs font-semibold text-slate-600">Prompt</a>
+          <a href="#solution" className="flex-1 rounded-xl border border-slate-200 px-3 py-2 text-center text-xs font-semibold text-slate-600">Solution</a>
+          <a href="#checklist" className="flex-1 rounded-xl border border-slate-200 px-3 py-2 text-center text-xs font-semibold text-slate-600">Checklist</a>
+        </div>
+        {!timerStarted && (
+          <button
+            onClick={startTimer}
+            className="w-full mb-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700"
+          >
+            Start Timer
+          </button>
+        )}
+        <button
+          onClick={handleReveal}
+          className={`w-full rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
+            revealed ? 'bg-emerald-600 text-white' : 'bg-slate-900 text-white'
+          }`}
+        >
+          {revealed ? 'Hide Solution' : 'Reveal Solution'}
+        </button>
       </div>
     </div>
   )

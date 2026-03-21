@@ -12,9 +12,9 @@ export default function CaseGrid({ cases, filters, setFilters }) {
   return (
     <div className="flex-1 flex flex-col min-w-0">
       {/* Toolbar */}
-      <div className="sticky top-16 z-30 bg-white/70 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center gap-3">
+      <div className="sticky top-16 z-30 bg-white/70 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center gap-2 sm:gap-3">
         {/* Search */}
-        <div className="relative flex-1 min-w-[200px]">
+        <div className="relative flex-[1_1_100%] sm:flex-1 min-w-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
           <input
             type="text"
@@ -26,7 +26,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
         </div>
 
         {/* Results count */}
-        <p className="text-sm text-slate-500 flex-shrink-0 hidden sm:block">
+        <p className="text-xs sm:text-sm text-slate-500 flex-shrink-0">
           <span className="font-semibold text-slate-800">{sorted.length}</span> cases
         </p>
 
@@ -50,7 +50,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
       </div>
 
       {/* Grid / List */}
-      <div className="p-4 sm:p-6 flex-1">
+      <div className="p-3 sm:p-6 flex-1">
         {sorted.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 gap-4">
             <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
@@ -70,7 +70,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
             </button>
           </div>
         ) : view === 'grid' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-4">
             {sorted.map((c) => (
               <CaseCard key={c.id} c={c} />
             ))}
@@ -101,7 +101,7 @@ function ListRow({ c }) {
   return (
     <Link
       href={`/cases/${c.id}`}
-      className="card px-5 py-3.5 flex items-center gap-4 hover:shadow-md hover:border-brand-200 transition-all duration-200 group"
+      className="card px-4 sm:px-5 py-3.5 flex items-center gap-3 sm:gap-4 hover:shadow-md hover:border-brand-200 transition-all duration-200 group"
     >
       <div className="flex-1 min-w-0">
         <div className="flex flex-wrap items-center gap-2 mb-0.5">
@@ -117,7 +117,7 @@ function ListRow({ c }) {
           {c.title}
         </p>
       </div>
-      <span className={`badge border flex-shrink-0 ${DIFF_STYLES[c.difficulty] ?? DIFF_STYLES.Medium}`}>
+      <span className={`badge border flex-shrink-0 hidden sm:inline-flex ${DIFF_STYLES[c.difficulty] ?? DIFF_STYLES.Medium}`}>
         {c.difficulty}
       </span>
       <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-brand-500 flex-shrink-0 transition-colors" />

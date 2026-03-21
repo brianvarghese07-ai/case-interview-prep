@@ -80,35 +80,35 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b border-slate-200/80">
         <div className="absolute -top-24 -left-10 w-72 h-72 rounded-full bg-brand-200/40 blur-3xl animate-float-slow" />
         <div className="absolute -top-32 right-0 w-[22rem] h-[22rem] rounded-full bg-orange-200/45 blur-3xl animate-float-slow [animation-delay:1.2s]" />
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-12 lg:py-16 relative">
-          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16 relative">
+          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-5 sm:gap-8 items-start">
             <div className="max-w-3xl animate-rise">
               <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-700 bg-white/90 border border-brand-200 rounded-full px-3 py-1 mb-4 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
                 IFSA Casebooks 2023-2025
               </div>
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight leading-[1.05] mb-5">
+              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight leading-[1.05] mb-4 sm:mb-5 max-w-[14ch] sm:max-w-none">
                 Practice Like a
                 <span className="text-brand-700"> Top-Tier Consultant</span>
               </h1>
-              <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
+              <p className="text-slate-600 text-sm sm:text-lg leading-relaxed max-w-2xl">
                 Browse {casesData.length} real interview cases from the IFSA 2023, 2024, and 2025 casebooks.
                 Filter by year, case type, company, and difficulty, then self-grade with structured reveal mode.
               </p>
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <a href="#case-library" className="btn-primary">
+              <div className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <a href="#case-library" className="btn-primary justify-center">
                   Explore Cases
                 </a>
                 <a
                   href="#about"
-                  className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
                 >
                   How It Works
                 </a>
               </div>
             </div>
 
-            <div className="card p-5 sm:p-6 animate-rise [animation-delay:120ms]">
+            <div className="card p-4 sm:p-6 animate-rise [animation-delay:120ms] order-last lg:order-none">
               <p className="text-xs uppercase tracking-[0.12em] text-slate-500 font-semibold mb-3">
                 Difficulty Distribution
               </p>
@@ -145,9 +145,9 @@ export default function HomePage() {
           </div>
 
           {/* Stats row */}
-          <div className="mt-9 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl animate-rise [animation-delay:220ms]">
-            {STATS.map((s) => (
-              <div key={s.label} className="card px-4 py-4">
+          <div className="mt-6 sm:mt-9 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl animate-rise [animation-delay:220ms]">
+            {STATS.map((s, idx) => (
+              <div key={s.label} className={`card px-4 py-4 ${idx > 1 ? 'hidden sm:block' : ''}`}>
                 <p className="text-2xl font-bold text-brand-700">{s.value}</p>
                 <p className="text-xs text-slate-500 mt-1">{s.label}</p>
               </div>
