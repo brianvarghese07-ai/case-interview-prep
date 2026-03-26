@@ -158,7 +158,7 @@ export default function HomePage() {
 
       {/* ── Main Content: Sidebar + Grid ──────────────────────────────────── */}
       <section id="case-library" className="max-w-screen-2xl mx-auto px-3 sm:px-6 py-5">
-        <div className="rounded-[1.6rem] border border-slate-200/90 bg-white/70 backdrop-blur-sm overflow-hidden shadow-[0_20px_60px_rgba(10,30,90,0.08)]">
+        <div className="rounded-[1.6rem] border border-slate-200/90 bg-white/70 backdrop-blur-sm overflow-visible lg:overflow-hidden shadow-[0_20px_60px_rgba(10,30,90,0.08)]">
           <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-14rem)]">
             <Sidebar
               options={{
