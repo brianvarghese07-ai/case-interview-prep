@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronDown, ChevronUp, X, SlidersHorizontal } from 'lucide-react'
 
 const DIFFICULTY_COLORS = {
@@ -77,6 +78,22 @@ function FilterOption({ label, checked, count, colorClass, icon, onChange }) {
  */
 export default function Sidebar({ options, counts, filters, setFilters, totalVisible, totalAll }) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mobileOpen) return undefined
+
+    const originalOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = originalOverflow
+    }
+  }, [mobileOpen])
 
   const toggle = (key, value) => {
     setFilters((prev) => {
@@ -233,7 +250,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       </div>
 
       {/* Mobile drawer */}
-      {mobileOpen && (
+      {mounted && mobileOpen && createPortal(
         <div className="fixed inset-0 z-[70] lg:hidden">
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
@@ -258,7 +275,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
             <SidebarContent />
           </div>
         </div>
-      )}
+      , document.body)}
 
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 bg-white/70 border-r border-slate-200 min-h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-sm">
