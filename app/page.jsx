@@ -208,6 +208,9 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+            <p className="mt-8 text-sm text-slate-500 leading-relaxed max-w-3xl">
+              We would like to thank all the IFSA chapters we partnered with from the DU circuit in the making of our casebooks.
+            </p>
           </div>
         </div>
       </section>
