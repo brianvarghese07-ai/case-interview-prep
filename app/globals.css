@@ -166,6 +166,32 @@
     color: #2563eb;
   }
 
+  .solution-toggle-revealed {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+  }
+
+  .solution-toggle-hidden {
+    background: #0f172a;
+  }
+
+  .solution-toggle-hidden:hover {
+    background: #1e293b;
+  }
+
+  .solution-body {
+    background: linear-gradient(180deg, rgba(236, 253, 245, 0.5) 0%, #ffffff 100%);
+    border-left-color: #34d399;
+  }
+
+  .solution-eyebrow {
+    color: #047857;
+  }
+
+  .solution-hide-button:hover {
+    background: #f8fafc;
+  }
+
   .case-tile {
     position: relative;
     overflow: hidden;
@@ -279,6 +305,33 @@
 
   :root[data-theme='dark'] .practice-feature-icon {
     color: #9fd8ff;
+  }
+
+  :root[data-theme='dark'] .solution-toggle-revealed {
+    background: rgba(21, 128, 61, 0.18);
+    border-color: rgba(74, 222, 128, 0.3);
+  }
+
+  :root[data-theme='dark'] .solution-toggle-hidden {
+    background: rgba(15, 23, 42, 0.94);
+  }
+
+  :root[data-theme='dark'] .solution-toggle-hidden:hover {
+    background: rgba(30, 41, 59, 0.94);
+  }
+
+  :root[data-theme='dark'] .solution-body {
+    background:
+      linear-gradient(180deg, rgba(22, 101, 52, 0.12) 0%, rgba(8, 13, 21, 0.84) 100%);
+    border-left-color: rgba(74, 222, 128, 0.72);
+  }
+
+  :root[data-theme='dark'] .solution-eyebrow {
+    color: #86efac;
+  }
+
+  :root[data-theme='dark'] .solution-hide-button:hover {
+    background: rgba(229, 238, 250, 0.08);
   }
 
   :root[data-theme='dark'] .case-tile::before {

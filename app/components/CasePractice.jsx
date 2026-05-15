@@ -76,10 +76,46 @@ function splitMixedTurn(text) {
   }
 }
 
+function normalizeTranscriptLines(text) {
+  const sourceLines = text.split('\n')
+  const lines = []
+
+  for (const rawLine of sourceLines) {
+    const current = rawLine.trim()
+
+    if (!current) {
+      if (lines[lines.length - 1] !== '') lines.push('')
+      continue
+    }
+
+    const previous = lines[lines.length - 1]
+    const parsed = parseExplicitSpeaker(current)
+    const previousParsed = previous ? parseExplicitSpeaker(previous) : null
+    const previousText = previousParsed?.text ?? previous
+    const currentStartsContinuation = /^[a-z),.;:$]/.test(current)
+    const previousLooksOpen = previous && !/[.!?]"?$/.test(previousText)
+    const previousEndsOperator = /[-+*/=]$/.test(previousText)
+    const shouldMerge =
+      previous &&
+      previous !== '' &&
+      !parsed.explicit &&
+      !previousParsed?.explicit &&
+      (currentStartsContinuation || previousLooksOpen || previousEndsOperator)
+
+    if (shouldMerge) {
+      lines[lines.length - 1] = `${previous} ${current}`.replace(/\s+/g, ' ').trim()
+    } else {
+      lines.push(current)
+    }
+  }
+
+  return lines
+}
+
 function SolutionDialogue({ text }) {
   if (!text) return <p className="text-[color:var(--muted)] italic">Not available.</p>
 
-  const rawLines = text.split('\n')
+  const rawLines = normalizeTranscriptLines(text)
   const lines = []
   let lastSpeaker = null
   let lastText = ''
@@ -296,8 +332,8 @@ export default function CasePractice({ c, prev, next, total }) {
               onClick={handleReveal}
               className={`w-full px-4 sm:px-5 py-4 flex items-center justify-between gap-3 border-b transition-colors ${
                 revealed
-                  ? 'bg-emerald-50 border-emerald-200'
-                  : 'bg-slate-900 hover:bg-slate-800'
+                  ? 'solution-toggle-revealed'
+                  : 'solution-toggle-hidden'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -327,10 +363,10 @@ export default function CasePractice({ c, prev, next, total }) {
 
             {/* Solution content */}
             {revealed && (
-              <div className="px-4 sm:px-5 py-4 sm:py-5 bg-gradient-to-b from-emerald-50/50 to-white border-l-4 border-emerald-400 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="solution-body px-4 sm:px-5 py-4 sm:py-5 border-l-4 animate-in fade-in slide-in-from-top-2 duration-300">
                 <div className="flex items-center gap-2 mb-4">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider">
+                  <p className="solution-eyebrow text-xs font-semibold uppercase tracking-wider">
                     Candidate&apos;s Framework & Answer
                   </p>
                 </div>
@@ -342,7 +378,7 @@ export default function CasePractice({ c, prev, next, total }) {
             {revealed && (
               <button
                 onClick={handleReveal}
-                className="w-full px-5 py-3 flex items-center justify-center gap-2 border-t border-[color:var(--border)] text-xs text-[color:var(--muted)] hover:text-[color:var(--ink)] hover:bg-slate-50 transition-colors"
+                className="solution-hide-button w-full px-5 py-3 flex items-center justify-center gap-2 border-t border-[color:var(--border)] text-xs text-[color:var(--muted)] hover:text-[color:var(--ink)] transition-colors"
               >
                 <EyeOff className="w-3.5 h-3.5" />
                 Hide Solution
