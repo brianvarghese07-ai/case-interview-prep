@@ -23,18 +23,18 @@ const CATEGORY_ICONS = {
 function FilterSection({ title, children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen)
   return (
-    <div className="border-b border-slate-100/90 last:border-b-0">
+    <div className="border-b border-[color:var(--border)]/80 last:border-b-0">
       <button
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/40 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/30 transition-colors"
         onClick={() => setOpen(!open)}
       >
-        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[color:var(--muted)]">
           {title}
         </span>
         {open ? (
-          <ChevronUp className="w-3.5 h-3.5 text-slate-400" />
+          <ChevronUp className="w-3.5 h-3.5 text-[color:var(--muted)]" />
         ) : (
-          <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+          <ChevronDown className="w-3.5 h-3.5 text-[color:var(--muted)]" />
         )}
       </button>
       {open && <div className="px-3 pb-3 space-y-1">{children}</div>}
@@ -45,14 +45,14 @@ function FilterSection({ title, children, defaultOpen = true }) {
 /** A single filter pill/checkbox row */
 function FilterOption({ label, checked, count, colorClass, icon, onChange }) {
   return (
-    <label className="flex items-center gap-2.5 px-1.5 py-2 rounded-lg cursor-pointer hover:bg-brand-50/40 group transition-colors">
+    <label className={`flex items-center gap-2.5 px-2 py-2 rounded-xl cursor-pointer group transition-all ${checked ? 'bg-brand-50/60' : 'hover:bg-brand-50/30'}`}>
       <input
         type="checkbox"
         className="rounded border-slate-300 text-brand-600 w-4 h-4 cursor-pointer focus:ring-brand-500"
         checked={checked}
         onChange={onChange}
       />
-      <span className="flex-1 flex items-center gap-1.5 text-sm text-slate-700 group-hover:text-slate-900">
+      <span className="flex-1 flex items-center gap-1.5 text-sm text-[color:var(--ink-soft)] group-hover:text-[color:var(--ink)]">
         {icon && <span>{icon}</span>}
         {colorClass ? (
           <span className={`badge ${colorClass}`}>{label}</span>
@@ -61,7 +61,7 @@ function FilterOption({ label, checked, count, colorClass, icon, onChange }) {
         )}
       </span>
       {count !== undefined && (
-        <span className="text-xs text-slate-400 font-medium">{count}</span>
+        <span className="text-xs text-[color:var(--muted)] font-medium">{count}</span>
       )}
     </label>
   )
@@ -118,10 +118,10 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
   const SidebarContent = () => (
     <div className="h-full flex flex-col relative">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between bg-white/70">
+      <div className="px-4 py-3 border-b border-[color:var(--border)] flex items-center justify-between bg-[color:var(--surface)]/70">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="w-4 h-4 text-brand-600" />
-          <span className="font-semibold text-sm text-slate-800">Filters</span>
+          <span className="font-semibold text-sm text-[color:var(--ink)]">Filters</span>
           {activeCount > 0 && (
             <span className="badge bg-brand-100 text-brand-700">{activeCount}</span>
           )}
@@ -129,7 +129,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
         {activeCount > 0 && (
           <button
             onClick={clearAll}
-            className="text-xs text-slate-500 hover:text-red-500 flex items-center gap-1 transition-colors"
+            className="text-xs text-[color:var(--muted)] hover:text-red-500 flex items-center gap-1 transition-colors"
           >
             <X className="w-3 h-3" /> Clear
           </button>
@@ -137,8 +137,9 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       </div>
 
       {/* Case count */}
-      <div className="px-4 py-2.5 bg-brand-50/80 border-b border-brand-100">
-        <p className="text-xs text-brand-700">
+      <div className="px-4 py-3 bg-[linear-gradient(90deg,rgba(59,130,246,0.12),rgba(234,88,12,0.08))] border-b border-brand-100/60">
+        <p className="text-[11px] uppercase tracking-[0.14em] text-brand-700 font-semibold mb-1">Visible cases</p>
+        <p className="text-sm text-[color:var(--ink-soft)]">
           Showing <span className="font-bold">{totalVisible}</span> of{' '}
           <span className="font-bold">{totalAll}</span> cases
         </p>
@@ -214,11 +215,11 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
         </FilterSection>
       </div>
 
-      <div className="lg:hidden absolute inset-x-0 bottom-0 border-t border-slate-200 bg-white/95 backdrop-blur-md px-4 py-3 safe-bottom">
+      <div className="lg:hidden absolute inset-x-0 bottom-0 border-t border-[color:var(--border)] bg-[color:var(--surface)]/95 backdrop-blur-md px-4 py-3 safe-bottom">
         <div className="flex items-center gap-3">
           <button
             onClick={clearAll}
-            className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600"
+            className="flex-1 rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm font-semibold text-[color:var(--ink-soft)]"
           >
             Clear all
           </button>
@@ -239,7 +240,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       <div className="lg:hidden px-4 py-2 flex items-center gap-2">
         <button
           onClick={() => setMobileOpen(true)}
-          className="flex items-center gap-2 text-sm font-medium border border-slate-200 rounded-xl px-4 py-2.5 bg-white hover:bg-slate-50 transition-colors shadow-sm"
+          className="flex items-center gap-2 text-sm font-medium border border-[color:var(--border)] rounded-xl px-4 py-2.5 bg-[color:var(--surface)] hover:bg-slate-50 transition-colors shadow-sm"
         >
           <SlidersHorizontal className="w-4 h-4 text-brand-600" />
           Filters
@@ -256,14 +257,14 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute inset-x-0 bottom-0 max-h-[88vh] rounded-t-[1.75rem] bg-white shadow-2xl overflow-hidden">
+          <div className="absolute inset-x-0 bottom-0 max-h-[88vh] rounded-t-[1.75rem] bg-[color:var(--surface)] shadow-2xl overflow-hidden">
             <div className="flex items-center justify-center pt-3">
               <div className="h-1.5 w-12 rounded-full bg-slate-200" />
             </div>
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[color:var(--border)]">
               <div>
-                <span className="font-semibold text-slate-800">Filters</span>
-                <p className="text-xs text-slate-500 mt-0.5">Choose what you want to practice</p>
+                <span className="font-semibold text-[color:var(--ink)]">Filters</span>
+                <p className="text-xs text-[color:var(--muted)] mt-0.5">Choose what you want to practice</p>
               </div>
               <button
                 onClick={() => setMobileOpen(false)}
@@ -278,7 +279,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       , document.body)}
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 bg-white/70 border-r border-slate-200 min-h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-sm">
+      <aside className="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 bg-[color:var(--surface)]/72 border-r border-[color:var(--border)] min-h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-sm">
         <SidebarContent />
       </aside>
     </>

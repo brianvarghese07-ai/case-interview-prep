@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { Headphones, LibraryBig } from 'lucide-react'
 import { getAllCases } from '../lib/cases'
 import Sidebar from './components/Sidebar'
 import CaseGrid from './components/CaseGrid'
@@ -41,6 +42,21 @@ const STATS = [
   { label: 'Industries',     value: ALL_INDUSTRIES.length },
 ]
 
+const FEATURED_TRACKS = [
+  {
+    icon: LibraryBig,
+    label: 'Study Track',
+    title: 'Build pattern recognition fast',
+    body: 'Scan case prompts, compare candidate approaches, and notice how great answers frame, branch, and synthesize.',
+  },
+  {
+    icon: Headphones,
+    label: 'Practice Chat Track',
+    title: 'Practice under real conversational pressure',
+    body: 'Switch from reading to dialogue. Gemini stays in interviewer mode, adapts to your questions, and keeps the case moving naturally.',
+  },
+]
+
 const DIFFICULTY_META = {
   Easy: { color: 'bg-emerald-500', ring: 'ring-emerald-200' },
   Medium: { color: 'bg-amber-500', ring: 'ring-amber-200' },
@@ -77,7 +93,7 @@ export default function HomePage() {
   return (
     <div className="relative">
       {/* ── Hero Banner ───────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-slate-200/80">
+      <section className="relative overflow-hidden border-b border-[color:var(--border)]">
         <div className="absolute -top-24 -left-10 w-72 h-72 rounded-full bg-brand-200/40 blur-3xl animate-float-slow" />
         <div className="absolute -top-32 right-0 w-[22rem] h-[22rem] rounded-full bg-orange-200/45 blur-3xl animate-float-slow [animation-delay:1.2s]" />
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16 relative">
@@ -87,17 +103,23 @@ export default function HomePage() {
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
                 IFSA Casebooks 2023-2025
               </div>
-              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight leading-[1.05] mb-4 sm:mb-5 max-w-[14ch] sm:max-w-none">
-                Practice Like a
-                <span className="text-brand-700"> Top-Tier Consultant</span>
+              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-[color:var(--ink)] tracking-tight leading-[1.02] mb-4 sm:mb-5 max-w-[14ch] sm:max-w-none">
+                Train the
+                <span className="text-brand-700"> consulting conversation</span>
               </h1>
-              <p className="text-slate-600 text-sm sm:text-lg leading-relaxed max-w-2xl">
+              <p className="text-[color:var(--ink-soft)] text-sm sm:text-lg leading-relaxed max-w-2xl">
                 Browse {casesData.length} real interview cases from the IFSA 2023, 2024, and 2025 casebooks.
-                Filter by year, case type, company, and difficulty, then self-grade with structured reveal mode.
+                Study them in a clean library, then switch into an interactive practice chat where the interviewer reveals facts as the discussion earns them.
               </p>
               <div className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a href="#case-library" className="btn-primary justify-center">
                   Explore Cases
+                </a>
+                <a
+                  href="/practice"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl border border-brand-200 bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"
+                >
+                  Try Practice Chat
                 </a>
                 <a
                   href="#about"
@@ -106,10 +128,55 @@ export default function HomePage() {
                   How It Works
                 </a>
               </div>
+              <div className="mt-7 grid gap-3 sm:grid-cols-3 max-w-3xl">
+                {[
+                  'Learn the best candidate patterns',
+                  'Switch instantly into practice chat',
+                  'Review structure, math, and synthesis',
+                ].map((point) => (
+                  <div key={point} className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)]/78 px-4 py-3 text-sm font-medium text-[color:var(--ink-soft)] shadow-sm backdrop-blur-sm">
+                    {point}
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="card p-4 sm:p-6 animate-rise [animation-delay:120ms] order-last lg:order-none">
-              <p className="text-xs uppercase tracking-[0.12em] text-slate-500 font-semibold mb-3">
+              <div className="rounded-[1.5rem] border border-[color:var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(233,241,255,0.9))] p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.12em] text-[color:var(--muted)] font-semibold mb-2">
+                      Training Snapshot
+                    </p>
+                    <h3 className="font-display text-2xl font-bold text-[color:var(--ink)]">From library to live interviewer</h3>
+                  </div>
+                  <div className="rounded-2xl bg-slate-950 px-3 py-2 text-right text-white shadow-lg">
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-white/60">Best for</p>
+                    <p className="text-sm font-semibold">Interactive drills</p>
+                  </div>
+                </div>
+                <div className="mt-5 space-y-3">
+                  {FEATURED_TRACKS.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <div key={item.label} className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)]/90 p-4 shadow-sm">
+                        <div className="flex items-start gap-3">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
+                            <Icon className="h-5 w-5" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--muted)]">{item.label}</p>
+                            <p className="mt-1 font-semibold text-[color:var(--ink)]">{item.title}</p>
+                            <p className="mt-1 text-sm leading-relaxed text-[color:var(--ink-soft)]">{item.body}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+              <div className="mt-4">
+              <p className="text-xs uppercase tracking-[0.12em] text-[color:var(--muted)] font-semibold mb-3">
                 Difficulty Distribution
               </p>
               <div className="space-y-3 mb-5">
@@ -120,10 +187,10 @@ export default function HomePage() {
                   return (
                     <div key={d}>
                       <div className="flex items-center justify-between text-sm mb-1">
-                        <p className="font-semibold text-slate-800">{d}</p>
-                        <p className="text-slate-500">{count} cases</p>
+                        <p className="font-semibold text-[color:var(--ink)]">{d}</p>
+                        <p className="text-[color:var(--muted)]">{count} cases</p>
                       </div>
-                      <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden ring-1 ring-slate-200">
+                      <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden ring-1 ring-[color:var(--border)]">
                         <div
                           className={`h-full rounded-full ${meta.color}`}
                           style={{ width: `${pct}%` }}
@@ -135,11 +202,44 @@ export default function HomePage() {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {STATS.slice(0, 2).map((s) => (
-                  <div key={s.label} className="rounded-xl border border-slate-200 bg-white px-3 py-2">
-                    <p className="text-xl font-bold text-slate-900">{s.value}</p>
-                    <p className="text-xs text-slate-500">{s.label}</p>
+                  <div key={s.label} className="rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-3 py-2">
+                    <p className="text-xl font-bold text-[color:var(--ink)]">{s.value}</p>
+                    <p className="text-xs text-[color:var(--muted)]">{s.label}</p>
                   </div>
                 ))}
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 lg:grid-cols-2 animate-rise [animation-delay:180ms]">
+            <div className="rounded-[1.6rem] border border-slate-200 bg-white/90 p-5 shadow-[0_16px_40px_rgba(15,42,90,0.06)]">
+              <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                Study Mode
+              </div>
+              <h3 className="mt-4 font-display text-2xl font-bold text-slate-900">Learn the case before you perform it</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                Read prompts, compare candidate solutions, and build your instincts across sectors, companies, and case types.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-500">
+                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5">Searchable case library</span>
+                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5">Reveal-mode practice</span>
+                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5">Self-grading checklist</span>
+              </div>
+            </div>
+
+            <div className="rounded-[1.6rem] border border-brand-200 bg-[linear-gradient(135deg,rgba(15,91,216,0.08),rgba(234,88,12,0.08))] p-5 shadow-[0_16px_40px_rgba(15,42,90,0.08)]">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-brand-700">
+                Practice Chat Mode
+              </div>
+              <h3 className="mt-4 font-display text-2xl font-bold text-slate-900">Practice the real conversation</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                Start with a category like profitability, market entry, or guesstimate and work through the case in an interviewer-style Gemini chat.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2 text-xs text-brand-800/80">
+                <span className="rounded-full border border-brand-200 bg-white/80 px-3 py-1.5">Interviewer-style chat</span>
+                <span className="rounded-full border border-brand-200 bg-white/80 px-3 py-1.5">Controlled fact reveals</span>
+                <span className="rounded-full border border-brand-200 bg-white/80 px-3 py-1.5">Gemini grounded mode</span>
               </div>
             </div>
           </div>
@@ -159,6 +259,21 @@ export default function HomePage() {
       {/* ── Main Content: Sidebar + Grid ──────────────────────────────────── */}
       <section id="case-library" className="max-w-screen-2xl mx-auto px-3 sm:px-6 py-5">
         <div className="rounded-[1.6rem] border border-slate-200/90 bg-white/70 backdrop-blur-sm overflow-visible lg:overflow-hidden shadow-[0_20px_60px_rgba(10,30,90,0.08)]">
+          <div className="border-b border-slate-200/80 bg-[linear-gradient(90deg,rgba(255,255,255,0.92),rgba(232,240,255,0.92))] px-4 sm:px-6 py-4">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">Two ways to train</p>
+                <h2 className="mt-1 font-display text-2xl font-bold text-slate-900">Study the case or launch the practice chat</h2>
+                <p className="mt-1 text-sm text-slate-600">
+                  Every case page now supports both self-study and an interviewer-style Gemini practice chat.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <span className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700">Mode 1: Study</span>
+                <span className="rounded-full border border-brand-200 bg-brand-50 px-3 py-1.5 text-xs font-semibold text-brand-700">Mode 2: Practice chat</span>
+              </div>
+            </div>
+          </div>
           <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-14rem)]">
             <Sidebar
               options={{
@@ -193,9 +308,9 @@ export default function HomePage() {
             </h2>
             <div className="grid sm:grid-cols-3 gap-6">
               {[
-                { step: '01', title: 'Pick a case', desc: 'Use filters to target the company, sector, and problem type you want to train.' },
-                { step: '02', title: 'Structure your thinking', desc: 'Read the interviewer prompt and build your own approach before revealing anything.' },
-                { step: '03', title: 'Benchmark & improve', desc: 'Compare with the candidate answer and score your own structure and clarity.' },
+                { step: '01', title: 'Study the pattern', desc: 'Use the library to absorb how strong candidates clarify scope, structure their thinking, and drive the case.' },
+                { step: '02', title: 'Switch into dialogue mode', desc: 'Launch practice chat when you want a more interactive interviewer-style back-and-forth instead of static reading.' },
+                { step: '03', title: 'Push your thinking live', desc: 'Use category-based drills to practice clarifying questions, structure, assumptions, and recommendations in real time.' },
               ].map((item) => (
                 <div key={item.step} className="card p-5 flex flex-col gap-3">
                   <div className="w-9 h-9 rounded-xl bg-brand-50 border border-brand-200 text-brand-700 text-sm font-black flex items-center justify-center">

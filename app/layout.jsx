@@ -1,4 +1,5 @@
 import './globals.css'
+import ThemeToggle from './components/ThemeToggle'
 
 export const metadata = {
   title: 'Case Prep — IFSA Casebooks 2023-2025',
@@ -8,10 +9,27 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var stored = localStorage.getItem('caseprep-theme');
+                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var theme = stored || (prefersDark ? 'dark' : 'light');
+                  document.documentElement.dataset.theme = theme;
+                  document.documentElement.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-screen">
         {/* Top Navigation Bar */}
-        <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-md">
+        <header className="sticky top-0 z-50 border-b border-[color:var(--border)] bg-[color:var(--header)]/90 backdrop-blur-md">
           <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
             {/* Logo / Brand */}
             <a href="/" className="flex items-center gap-3 group">
@@ -21,10 +39,10 @@ export default function RootLayout({ children }) {
                 </svg>
               </div>
               <div className="leading-tight min-w-0">
-                <p className="text-sm sm:text-base font-semibold text-slate-900 group-hover:text-brand-700 transition-colors truncate">
+                <p className="text-sm sm:text-base font-semibold text-[color:var(--ink)] group-hover:text-brand-700 transition-colors truncate">
                   Case Interview Prep
                 </p>
-                <p className="text-xs text-slate-500 hidden sm:block">IFSA Casebooks 2023-2025</p>
+                <p className="text-xs text-[color:var(--muted)] hidden sm:block">IFSA Casebooks 2023-2025</p>
               </div>
             </a>
 
@@ -32,16 +50,23 @@ export default function RootLayout({ children }) {
             <nav className="flex items-center gap-2">
               <a
                 href="/"
-                className="text-sm font-medium text-slate-700 hover:text-brand-700 px-2 sm:px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors"
+                className="text-sm font-medium text-[color:var(--ink-soft)] hover:text-brand-700 px-2 sm:px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors"
               >
                 Cases
               </a>
               <a
+                href="/practice"
+                className="text-sm font-medium text-[color:var(--ink-soft)] hover:text-brand-700 px-2 sm:px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors"
+              >
+                Practice Chat
+              </a>
+              <a
                 href="/#about"
-                className="hidden sm:inline-flex text-sm font-medium text-slate-700 hover:text-brand-700 px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors"
+                className="hidden sm:inline-flex text-sm font-medium text-[color:var(--ink-soft)] hover:text-brand-700 px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors"
               >
                 About
               </a>
+              <ThemeToggle />
               <a
                 href="https://github.com"
                 target="_blank"

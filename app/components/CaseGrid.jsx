@@ -12,36 +12,36 @@ export default function CaseGrid({ cases, filters, setFilters }) {
   return (
     <div className="flex-1 flex flex-col min-w-0">
       {/* Toolbar */}
-      <div className="sticky top-16 z-30 bg-white/70 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center gap-2 sm:gap-3">
+      <div className="sticky top-16 z-30 border-b border-[color:var(--border)] bg-[color:var(--surface-3)] px-4 sm:px-6 py-3 backdrop-blur-xl flex flex-wrap items-center gap-2 sm:gap-3">
         {/* Search */}
         <div className="relative flex-[1_1_100%] sm:flex-1 min-w-0">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[color:var(--muted)] pointer-events-none" />
           <input
             type="text"
             placeholder="Search cases, companies, industries, years…"
             value={filters.search ?? ''}
             onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
-            className="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-white/95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-slate-400 transition-shadow"
+            className="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--ink)] focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder:text-[color:var(--muted)] transition-shadow"
           />
         </div>
 
         {/* Results count */}
-        <p className="text-xs sm:text-sm text-slate-500 flex-shrink-0">
-          <span className="font-semibold text-slate-800">{sorted.length}</span> cases
+        <p className="text-xs sm:text-sm text-[color:var(--muted)] flex-shrink-0">
+          <span className="font-semibold text-[color:var(--ink)]">{sorted.length}</span> cases
         </p>
 
         {/* View toggle */}
-        <div className="flex items-center gap-0.5 bg-white border border-slate-200 rounded-xl p-0.5 shadow-sm">
+        <div className="flex items-center gap-0.5 bg-[color:var(--surface)] border border-[color:var(--border)] rounded-xl p-0.5 shadow-sm">
           <button
             onClick={() => setView('grid')}
-            className={`p-1.5 rounded-md transition-colors ${view === 'grid' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`}
+            className={`p-1.5 rounded-md transition-colors ${view === 'grid' ? 'bg-brand-600 text-white' : 'text-[color:var(--muted)] hover:text-[color:var(--ink)] hover:bg-slate-100/70'}`}
             title="Grid view"
           >
             <LayoutGrid className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => setView('list')}
-            className={`p-1.5 rounded-md transition-colors ${view === 'list' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`}
+            className={`p-1.5 rounded-md transition-colors ${view === 'list' ? 'bg-brand-600 text-white' : 'text-[color:var(--muted)] hover:text-[color:var(--ink)] hover:bg-slate-100/70'}`}
             title="List view"
           >
             <List className="w-3.5 h-3.5" />
@@ -101,19 +101,19 @@ function ListRow({ c }) {
   return (
     <Link
       href={`/cases/${c.id}`}
-      className="card px-4 sm:px-5 py-3.5 flex items-center gap-3 sm:gap-4 hover:shadow-md hover:border-brand-200 transition-all duration-200 group"
+      className="card case-tile px-4 sm:px-5 py-3.5 flex items-center gap-3 sm:gap-4 transition-all duration-150 group"
     >
       <div className="flex-1 min-w-0">
         <div className="flex flex-wrap items-center gap-2 mb-0.5">
-          <span className="text-xs text-slate-400">{c.category}</span>
+          <span className="text-xs text-[color:var(--muted)]">{c.category}</span>
           <span className="text-xs text-slate-300">·</span>
-          <span className="text-xs text-slate-500">{c.year}</span>
+          <span className="text-xs text-[color:var(--muted)]">{c.year}</span>
           <span className="text-xs text-slate-300">·</span>
-          <span className="text-xs font-medium text-slate-600">{c.company}</span>
+          <span className="text-xs font-medium text-[color:var(--ink-soft)]">{c.company}</span>
           <span className="text-xs text-slate-300">·</span>
-          <span className="text-xs text-slate-400">{c.industry}</span>
+          <span className="text-xs text-[color:var(--muted)]">{c.industry}</span>
         </div>
-        <p className="font-medium text-sm text-slate-900 group-hover:text-brand-700 truncate transition-colors">
+        <p className="font-medium text-sm text-[color:var(--ink)] group-hover:text-brand-700 truncate transition-colors">
           {c.title}
         </p>
       </div>

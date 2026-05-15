@@ -100,6 +100,85 @@ npm start
 
 ---
 
+## Practice Chat Mode
+
+The app now includes a Gemini-powered interactive practice chat at `/practice`.
+
+This mode is designed for:
+
+- category-first drills like `Profitability`, `Market Entry`, and `Guesstimate`
+- interviewer-style dialogue instead of static answer reveal
+- grounding on the extracted casebook data already stored in `public/data/cases.json`
+
+Important:
+
+- this is grounded on your casebook data
+- it is **not** fine-tuning or model training on the PDF itself
+- the server picks a matching case and sends that case context to Gemini 2.5 Flash
+
+## Mock Interview Mode
+
+The repo now includes a first-pass mock interview architecture for voice-style case calls.
+
+### New routes
+
+- `GET /mock/[id]` — mock interview studio for a specific case
+- `POST /api/mock-interview/session` — returns a case blueprint and, when configured, mints an OpenAI Realtime client secret
+- `POST /api/mock-interview/evaluate` — evaluates a completed transcript using the OpenAI Responses API
+
+### Environment variables
+
+Create `.env.local` with:
+
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+Without `OPENAI_API_KEY`, the studio still renders the interview blueprint, but live OpenAI session creation is disabled.
+Without `GEMINI_API_KEY`, the interactive practice chat will not connect to Gemini.
+
+### What you need to do manually
+
+The API key is the one part I cannot create or paste on your behalf.
+
+For local development:
+
+1. Copy `.env.example` to `.env.local`
+2. Replace the placeholder values with your real API keys
+
+For Vercel deployment:
+
+1. Open your project in Vercel
+2. Go to `Settings` → `Environment Variables`
+3. Add `OPENAI_API_KEY`
+4. Add `GEMINI_API_KEY`
+5. Paste your real API keys as the values
+6. Redeploy the project
+
+If you skip this step, the site will still load, but the Gemini practice chat route will return a missing-key response and the mock session route will stay disabled.
+
+### OpenAI integration notes
+
+This implementation is designed around OpenAI's current recommended APIs for new builds:
+
+- Realtime API for low-latency voice interactions and short-lived client secrets:
+  [Realtime API guide](https://platform.openai.com/docs/guides/realtime/session)
+- Realtime WebRTC flow for browser-based voice apps:
+  [WebRTC guide](https://platform.openai.com/docs/guides/realtime-webrtc)
+- Responses API for backend scoring and structured evaluation:
+  [Responses API reference](https://platform.openai.com/docs/api-reference/responses/create?api-mode=responses)
+
+### Recommended production architecture
+
+1. Browser joins a WebRTC session using the ephemeral secret from `/api/mock-interview/session`
+2. Realtime voice model acts as the interviewer during the call
+3. Your backend remains the source of truth for case state, reveals, transcript, and scoring
+4. At the end of the session, send the transcript to `/api/mock-interview/evaluate`
+5. Persist the transcript, rubric scores, and next-step coaching in your database
+
+---
+
 ## Workflow 3 — Deployment to Vercel (Free)
 
 Vercel offers a free Hobby plan that is perfect for this project.
