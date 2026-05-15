@@ -213,8 +213,8 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 grid gap-4 lg:grid-cols-2 animate-rise [animation-delay:180ms]">
-            <div className="rounded-[1.6rem] border border-[color:var(--border)] bg-[color:var(--surface)]/90 p-5 shadow-[0_16px_40px_rgba(15,42,90,0.06)]">
-              <div className="inline-flex items-center gap-2 rounded-full bg-slate-100/80 px-3 py-1 text-xs font-semibold text-[color:var(--ink-soft)]">
+            <div className="mode-card">
+              <div className="mode-label">
                 Study Mode
               </div>
               <h3 className="mt-4 font-display text-2xl font-bold text-[color:var(--ink)]">Learn the case before you perform it</h3>
@@ -222,14 +222,14 @@ export default function HomePage() {
                 Read prompts, compare candidate solutions, and build your instincts across sectors, companies, and case types.
               </p>
               <div className="mt-4 flex flex-wrap gap-2 text-xs text-[color:var(--muted)]">
-                <span className="rounded-full border border-[color:var(--border)] bg-slate-50/70 px-3 py-1.5">Searchable case library</span>
-                <span className="rounded-full border border-[color:var(--border)] bg-slate-50/70 px-3 py-1.5">Reveal-mode practice</span>
-                <span className="rounded-full border border-[color:var(--border)] bg-slate-50/70 px-3 py-1.5">Self-grading checklist</span>
+                <span className="soft-chip">Searchable case library</span>
+                <span className="soft-chip">Reveal-mode practice</span>
+                <span className="soft-chip">Self-grading checklist</span>
               </div>
             </div>
 
-            <div className="rounded-[1.6rem] border border-brand-200 bg-[linear-gradient(135deg,rgba(15,91,216,0.08),rgba(234,88,12,0.08))] p-5 shadow-[0_16px_40px_rgba(15,42,90,0.08)]">
-              <div className="inline-flex items-center gap-2 rounded-full bg-[color:var(--surface)]/90 px-3 py-1 text-xs font-semibold text-brand-700">
+            <div className="mode-card-accent">
+              <div className="mode-label-brand">
                 Practice Chat Mode
               </div>
               <h3 className="mt-4 font-display text-2xl font-bold text-[color:var(--ink)]">Practice the real conversation</h3>
@@ -237,9 +237,9 @@ export default function HomePage() {
                 Start with a category like profitability, market entry, or guesstimate and work through the case in an interviewer-style Gemini chat.
               </p>
               <div className="mt-4 flex flex-wrap gap-2 text-xs text-brand-800/80">
-                <span className="rounded-full border border-brand-200 bg-[color:var(--surface)]/80 px-3 py-1.5">Interviewer-style chat</span>
-                <span className="rounded-full border border-brand-200 bg-[color:var(--surface)]/80 px-3 py-1.5">Controlled fact reveals</span>
-                <span className="rounded-full border border-brand-200 bg-[color:var(--surface)]/80 px-3 py-1.5">Gemini grounded mode</span>
+                <span className="brand-chip">Interviewer-style chat</span>
+                <span className="brand-chip">Controlled fact reveals</span>
+                <span className="brand-chip">Gemini grounded mode</span>
               </div>
             </div>
           </div>

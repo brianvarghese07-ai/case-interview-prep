@@ -125,13 +125,13 @@ export default function PracticeStudio({ categories }) {
 
   return (
     <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-      <section className="relative overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,rgba(238,245,255,0.96)_100%)] px-5 py-6 sm:px-8 sm:py-8 shadow-[0_28px_60px_rgba(15,42,90,0.08)]">
+      <section className="practice-hero-panel">
         <div className="absolute -top-16 right-0 h-56 w-56 rounded-full bg-orange-200/45 blur-3xl" />
         <div className="absolute left-0 top-0 h-44 w-44 rounded-full bg-brand-200/40 blur-3xl" />
 
         <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-[color:var(--surface)]/90 px-3 py-1 text-xs font-semibold text-brand-700">
+            <div className="practice-hero-badge">
               <MessageSquareQuote className="h-3.5 w-3.5" />
               Interactive practice chat
             </div>
@@ -152,8 +152,8 @@ export default function PracticeStudio({ categories }) {
             ].map((item) => {
               const Icon = item.icon
               return (
-                <div key={item.label} className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)]/88 px-4 py-3 shadow-sm">
-                  <Icon className="h-4 w-4 text-brand-600" />
+                <div key={item.label} className="practice-feature-tile">
+                  <Icon className="h-4 w-4 practice-feature-icon" />
                   <p className="mt-2 text-xs font-semibold text-[color:var(--ink-soft)]">{item.label}</p>
                 </div>
               )

@@ -105,6 +105,67 @@
     @apply inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full;
   }
 
+  .mode-card {
+    @apply rounded-[1.6rem] border p-5 shadow-[0_16px_40px_rgba(15,42,90,0.06)];
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--border);
+  }
+
+  .mode-card-accent {
+    @apply rounded-[1.6rem] border p-5 shadow-[0_16px_40px_rgba(15,42,90,0.08)];
+    background: linear-gradient(135deg, rgba(15,91,216,0.08), rgba(234,88,12,0.08));
+    border-color: #bfdbfe;
+  }
+
+  .mode-label {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold;
+    background: rgba(241, 245, 249, 0.8);
+    color: var(--ink-soft);
+  }
+
+  .mode-label-brand {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1d4ed8;
+  }
+
+  .soft-chip {
+    @apply rounded-full border px-3 py-1.5;
+    background: rgba(248, 250, 252, 0.7);
+    border-color: var(--border);
+    color: var(--muted);
+  }
+
+  .brand-chip {
+    @apply rounded-full border px-3 py-1.5;
+    background: rgba(255, 255, 255, 0.8);
+    border-color: #bfdbfe;
+    color: rgba(30, 64, 175, 0.8);
+  }
+
+  .practice-hero-panel {
+    @apply relative overflow-hidden rounded-[2rem] border px-5 py-6 shadow-[0_28px_60px_rgba(15,42,90,0.08)] sm:px-8 sm:py-8;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(238,245,255,0.96) 100%);
+    border-color: var(--border);
+  }
+
+  .practice-hero-badge {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold;
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #bfdbfe;
+    color: #1d4ed8;
+  }
+
+  .practice-feature-tile {
+    @apply rounded-2xl border px-4 py-3 shadow-sm;
+    background: rgba(255, 255, 255, 0.88);
+    border-color: var(--border);
+  }
+
+  .practice-feature-icon {
+    color: #2563eb;
+  }
+
   .case-tile {
     position: relative;
     overflow: hidden;
@@ -160,6 +221,64 @@
     box-shadow:
       0 20px 44px rgba(0, 0, 0, 0.44),
       inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  :root[data-theme='dark'] .mode-card {
+    background: rgba(7, 11, 17, 0.72);
+    border-color: rgba(216, 228, 244, 0.16);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
+  }
+
+  :root[data-theme='dark'] .mode-card-accent {
+    background:
+      linear-gradient(135deg, rgba(106, 202, 255, 0.11), rgba(255, 190, 120, 0.08)),
+      rgba(14, 16, 23, 0.82);
+    border-color: rgba(183, 215, 255, 0.72);
+    box-shadow:
+      0 20px 46px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  :root[data-theme='dark'] .mode-label {
+    background: rgba(229, 238, 250, 0.16);
+    color: #eef5ff;
+  }
+
+  :root[data-theme='dark'] .mode-label-brand,
+  :root[data-theme='dark'] .practice-hero-badge {
+    background: rgba(74, 140, 190, 0.18);
+    border-color: rgba(154, 206, 255, 0.5);
+    color: #9fd8ff;
+  }
+
+  :root[data-theme='dark'] .soft-chip {
+    background: rgba(229, 238, 250, 0.12);
+    border-color: rgba(216, 228, 244, 0.2);
+    color: #cbd7e8;
+  }
+
+  :root[data-theme='dark'] .brand-chip {
+    background: rgba(74, 140, 190, 0.14);
+    border-color: rgba(154, 206, 255, 0.44);
+    color: #9fd8ff;
+  }
+
+  :root[data-theme='dark'] .practice-hero-panel {
+    background:
+      linear-gradient(180deg, rgba(24, 30, 41, 0.92) 0%, rgba(15, 20, 29, 0.94) 100%);
+    border-color: rgba(216, 228, 244, 0.16);
+    box-shadow:
+      0 26px 62px rgba(0, 0, 0, 0.46),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  :root[data-theme='dark'] .practice-feature-tile {
+    background: rgba(8, 13, 21, 0.72);
+    border-color: rgba(216, 228, 244, 0.16);
+  }
+
+  :root[data-theme='dark'] .practice-feature-icon {
+    color: #9fd8ff;
   }
 
   :root[data-theme='dark'] .case-tile::before {
