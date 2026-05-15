@@ -99,7 +99,7 @@ export default function HomePage() {
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16 relative">
           <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-5 sm:gap-8 items-start">
             <div className="max-w-3xl animate-rise">
-              <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-700 bg-white/90 border border-brand-200 rounded-full px-3 py-1 mb-4 shadow-sm">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-700 bg-[color:var(--surface)]/90 border border-brand-200 rounded-full px-3 py-1 mb-4 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
                 IFSA Casebooks 2023-2025
               </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
                 </a>
                 <a
                   href="#about"
-                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--ink-soft)] hover:bg-slate-50 transition-colors"
                 >
                   How It Works
                 </a>
@@ -142,7 +142,7 @@ export default function HomePage() {
             </div>
 
             <div className="card p-4 sm:p-6 animate-rise [animation-delay:120ms] order-last lg:order-none">
-              <div className="rounded-[1.5rem] border border-[color:var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(233,241,255,0.9))] p-4">
+              <div className="rounded-[1.5rem] border border-[color:var(--border)] bg-[linear-gradient(180deg,var(--surface)_0%,var(--surface-2)_100%)] p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="text-xs uppercase tracking-[0.12em] text-[color:var(--muted)] font-semibold mb-2">
@@ -213,33 +213,33 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 grid gap-4 lg:grid-cols-2 animate-rise [animation-delay:180ms]">
-            <div className="rounded-[1.6rem] border border-slate-200 bg-white/90 p-5 shadow-[0_16px_40px_rgba(15,42,90,0.06)]">
-              <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+            <div className="rounded-[1.6rem] border border-[color:var(--border)] bg-[color:var(--surface)]/90 p-5 shadow-[0_16px_40px_rgba(15,42,90,0.06)]">
+              <div className="inline-flex items-center gap-2 rounded-full bg-slate-100/80 px-3 py-1 text-xs font-semibold text-[color:var(--ink-soft)]">
                 Study Mode
               </div>
-              <h3 className="mt-4 font-display text-2xl font-bold text-slate-900">Learn the case before you perform it</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              <h3 className="mt-4 font-display text-2xl font-bold text-[color:var(--ink)]">Learn the case before you perform it</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[color:var(--ink-soft)]">
                 Read prompts, compare candidate solutions, and build your instincts across sectors, companies, and case types.
               </p>
-              <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-500">
-                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5">Searchable case library</span>
-                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5">Reveal-mode practice</span>
-                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5">Self-grading checklist</span>
+              <div className="mt-4 flex flex-wrap gap-2 text-xs text-[color:var(--muted)]">
+                <span className="rounded-full border border-[color:var(--border)] bg-slate-50/70 px-3 py-1.5">Searchable case library</span>
+                <span className="rounded-full border border-[color:var(--border)] bg-slate-50/70 px-3 py-1.5">Reveal-mode practice</span>
+                <span className="rounded-full border border-[color:var(--border)] bg-slate-50/70 px-3 py-1.5">Self-grading checklist</span>
               </div>
             </div>
 
             <div className="rounded-[1.6rem] border border-brand-200 bg-[linear-gradient(135deg,rgba(15,91,216,0.08),rgba(234,88,12,0.08))] p-5 shadow-[0_16px_40px_rgba(15,42,90,0.08)]">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-brand-700">
+              <div className="inline-flex items-center gap-2 rounded-full bg-[color:var(--surface)]/90 px-3 py-1 text-xs font-semibold text-brand-700">
                 Practice Chat Mode
               </div>
-              <h3 className="mt-4 font-display text-2xl font-bold text-slate-900">Practice the real conversation</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              <h3 className="mt-4 font-display text-2xl font-bold text-[color:var(--ink)]">Practice the real conversation</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[color:var(--ink-soft)]">
                 Start with a category like profitability, market entry, or guesstimate and work through the case in an interviewer-style Gemini chat.
               </p>
               <div className="mt-4 flex flex-wrap gap-2 text-xs text-brand-800/80">
-                <span className="rounded-full border border-brand-200 bg-white/80 px-3 py-1.5">Interviewer-style chat</span>
-                <span className="rounded-full border border-brand-200 bg-white/80 px-3 py-1.5">Controlled fact reveals</span>
-                <span className="rounded-full border border-brand-200 bg-white/80 px-3 py-1.5">Gemini grounded mode</span>
+                <span className="rounded-full border border-brand-200 bg-[color:var(--surface)]/80 px-3 py-1.5">Interviewer-style chat</span>
+                <span className="rounded-full border border-brand-200 bg-[color:var(--surface)]/80 px-3 py-1.5">Controlled fact reveals</span>
+                <span className="rounded-full border border-brand-200 bg-[color:var(--surface)]/80 px-3 py-1.5">Gemini grounded mode</span>
               </div>
             </div>
           </div>
@@ -249,7 +249,7 @@ export default function HomePage() {
             {STATS.map((s, idx) => (
               <div key={s.label} className={`card px-4 py-4 ${idx > 1 ? 'hidden sm:block' : ''}`}>
                 <p className="text-2xl font-bold text-brand-700">{s.value}</p>
-                <p className="text-xs text-slate-500 mt-1">{s.label}</p>
+                <p className="text-xs text-[color:var(--muted)] mt-1">{s.label}</p>
               </div>
             ))}
           </div>
@@ -258,18 +258,18 @@ export default function HomePage() {
 
       {/* ── Main Content: Sidebar + Grid ──────────────────────────────────── */}
       <section id="case-library" className="max-w-screen-2xl mx-auto px-3 sm:px-6 py-5">
-        <div className="rounded-[1.6rem] border border-slate-200/90 bg-white/70 backdrop-blur-sm overflow-visible lg:overflow-hidden shadow-[0_20px_60px_rgba(10,30,90,0.08)]">
-          <div className="border-b border-slate-200/80 bg-[linear-gradient(90deg,rgba(255,255,255,0.92),rgba(232,240,255,0.92))] px-4 sm:px-6 py-4">
+        <div className="rounded-[1.6rem] border border-[color:var(--border)] bg-[color:var(--surface-3)] backdrop-blur-sm overflow-visible lg:overflow-hidden shadow-[0_20px_60px_rgba(10,30,90,0.08)]">
+          <div className="border-b border-[color:var(--border)] bg-[linear-gradient(90deg,var(--surface),var(--surface-2))] px-4 sm:px-6 py-4">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">Two ways to train</p>
-                <h2 className="mt-1 font-display text-2xl font-bold text-slate-900">Study the case or launch the practice chat</h2>
-                <p className="mt-1 text-sm text-slate-600">
+                <h2 className="mt-1 font-display text-2xl font-bold text-[color:var(--ink)]">Study the case or launch the practice chat</h2>
+                <p className="mt-1 text-sm text-[color:var(--ink-soft)]">
                   Every case page now supports both self-study and an interviewer-style Gemini practice chat.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
-                <span className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700">Mode 1: Study</span>
+                <span className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-3 py-1.5 text-xs font-semibold text-[color:var(--ink-soft)]">Mode 1: Study</span>
                 <span className="rounded-full border border-brand-200 bg-brand-50 px-3 py-1.5 text-xs font-semibold text-brand-700">Mode 2: Practice chat</span>
               </div>
             </div>
@@ -299,11 +299,11 @@ export default function HomePage() {
       </section>
 
       {/* ── About Section ─────────────────────────────────────────────────── */}
-      <section id="about" className="border-t border-slate-200/80 bg-white/55">
+      <section id="about" className="border-t border-[color:var(--border)] bg-[color:var(--surface)]/35">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-14">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.14em] text-brand-700 font-semibold mb-3">Workflow</p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 mb-7">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-[color:var(--ink)] mb-7">
               Designed for deliberate case practice
             </h2>
             <div className="grid sm:grid-cols-3 gap-6">
@@ -317,13 +317,13 @@ export default function HomePage() {
                     {item.step}
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-800 mb-1">{item.title}</p>
-                    <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+                    <p className="font-semibold text-[color:var(--ink)] mb-1">{item.title}</p>
+                    <p className="text-sm text-[color:var(--muted)] leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <p className="mt-8 text-sm text-slate-500 leading-relaxed max-w-3xl">
+            <p className="mt-8 text-sm text-[color:var(--muted)] leading-relaxed max-w-3xl">
               We would like to thank all the IFSA chapters we partnered with from the DU circuit in the making of our casebooks.
             </p>
           </div>

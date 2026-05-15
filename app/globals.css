@@ -22,20 +22,20 @@
   }
 
   :root[data-theme='dark'] {
-    --bg: #09111d;
-    --ink: #edf4ff;
-    --ink-soft: #cad6ea;
-    --muted: #8ea2be;
-    --surface: #0f1b2d;
-    --surface-2: #14233a;
-    --surface-3: rgba(15, 27, 45, 0.84);
-    --border: rgba(158, 181, 214, 0.14);
-    --header: #0b1423;
-    --brand: #63a4ff;
-    --brand-soft: rgba(35, 87, 171, 0.26);
-    --accent: #ff9a62;
-    --shadow-color: rgba(2, 8, 20, 0.42);
-    --card-glow: rgba(99, 164, 255, 0.18);
+    --bg: #05090f;
+    --ink: #f4f7fb;
+    --ink-soft: #d5dde8;
+    --muted: #93a0b4;
+    --surface: rgba(24, 29, 38, 0.72);
+    --surface-2: rgba(34, 40, 51, 0.82);
+    --surface-3: rgba(19, 24, 33, 0.66);
+    --border: rgba(216, 228, 244, 0.12);
+    --header: rgba(9, 12, 18, 0.72);
+    --brand: #87d7ff;
+    --brand-soft: rgba(91, 171, 214, 0.14);
+    --accent: #ffd29a;
+    --shadow-color: rgba(0, 0, 0, 0.48);
+    --card-glow: rgba(138, 221, 255, 0.12);
   }
 
   html {
@@ -55,9 +55,10 @@
 
   :root[data-theme='dark'] body {
     background:
-      radial-gradient(800px 340px at 12% -2%, rgba(33, 84, 168, 0.35) 0%, transparent 60%),
-      radial-gradient(760px 300px at 88% -8%, rgba(166, 90, 39, 0.28) 0%, transparent 58%),
-      linear-gradient(180deg, #09111d 0%, #0c1627 100%);
+      radial-gradient(760px 340px at 50% 12%, rgba(120, 211, 255, 0.12) 0%, transparent 32%),
+      radial-gradient(640px 260px at 50% 76%, rgba(154, 202, 255, 0.08) 0%, transparent 28%),
+      radial-gradient(540px 220px at 12% -2%, rgba(64, 104, 138, 0.14) 0%, transparent 44%),
+      linear-gradient(180deg, #03070c 0%, #070b11 48%, #04070d 100%);
   }
 
   html {
@@ -89,6 +90,15 @@
   .btn-primary:hover {
     transform: translateY(-1px);
     box-shadow: 0 12px 24px rgba(15, 91, 216, 0.34);
+  }
+
+  :root[data-theme='dark'] .btn-primary {
+    background: linear-gradient(135deg, #5db3df 0%, #3d86aa 100%);
+    box-shadow: 0 10px 24px rgba(69, 145, 181, 0.32);
+  }
+
+  :root[data-theme='dark'] .btn-primary:hover {
+    box-shadow: 0 14px 28px rgba(69, 145, 181, 0.38);
   }
 
   .badge {
@@ -140,6 +150,34 @@
   .tile-content {
     position: relative;
     z-index: 1;
+  }
+
+  :root[data-theme='dark'] .card {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background:
+      linear-gradient(180deg, rgba(28, 33, 42, 0.76) 0%, rgba(21, 26, 34, 0.82) 100%);
+    box-shadow:
+      0 20px 44px rgba(0, 0, 0, 0.44),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  :root[data-theme='dark'] .case-tile::before {
+    background:
+      radial-gradient(220px circle at var(--mx, 85%) var(--my, 14%), rgba(217, 244, 255, 0.11), transparent 16%),
+      radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 30%),
+      linear-gradient(135deg, rgba(118, 212, 255, 0.06), transparent 46%);
+  }
+
+  :root[data-theme='dark'] .case-tile:hover,
+  :root[data-theme='dark'] .case-tile:focus-visible {
+    box-shadow:
+      0 24px 54px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(145, 223, 255, 0.12);
+  }
+
+  :root[data-theme='dark'] .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(145, 160, 183, 0.35);
   }
 }
 
@@ -200,9 +238,9 @@
 
   :root[data-theme='dark'] body {
     background:
-      radial-gradient(460px 180px at 10% -2%, rgba(33, 84, 168, 0.32) 0%, transparent 56%),
-      radial-gradient(420px 180px at 90% -5%, rgba(166, 90, 39, 0.26) 0%, transparent 52%),
-      linear-gradient(180deg, #09111d 0%, #0c1627 100%);
+      radial-gradient(320px 140px at 50% 10%, rgba(120, 211, 255, 0.1) 0%, transparent 34%),
+      radial-gradient(280px 120px at 50% 86%, rgba(154, 202, 255, 0.08) 0%, transparent 28%),
+      linear-gradient(180deg, #03070c 0%, #070b11 100%);
   }
 
   .card {
