@@ -1,5 +1,6 @@
 import './globals.css'
 import ThemeToggle from './components/ThemeToggle'
+import { Analytics } from '@vercel/analytics/react'
 
 export const metadata = {
   title: 'Case Prep — IFSA Casebooks 2023-2025',
@@ -80,6 +81,7 @@ export default function RootLayout({ children }) {
         </header>
 
         <main className="relative">{children}</main>
+        <Analytics />
       </body>
     </html>
   )
