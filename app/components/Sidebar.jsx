@@ -5,18 +5,9 @@ import { createPortal } from 'react-dom'
 import { ChevronDown, ChevronUp, X, SlidersHorizontal } from 'lucide-react'
 
 const DIFFICULTY_COLORS = {
-  Easy:   'bg-emerald-100 text-emerald-700',
-  Medium: 'bg-amber-100 text-amber-700',
-  Hard:   'bg-red-100   text-red-700',
-}
-
-const CATEGORY_ICONS = {
-  Guesstimate:           '🔢',
-  Profitability:         '📉',
-  'Market Entry':        '🚀',
-  'Market Growth & Sizing': '📈',
-  'Pricing Strategy':    '💰',
-  Unconventional:        '🎯',
+  Easy:   'badge-easy',
+  Medium: 'badge-medium',
+  Hard:   'badge-hard',
 }
 
 /** A collapsible filter section */
@@ -25,7 +16,7 @@ function FilterSection({ title, children, defaultOpen = true }) {
   return (
     <div className="border-b border-[color:var(--border)]/80 last:border-b-0">
       <button
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/30 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-[color:var(--surface-2)] transition-colors"
         onClick={() => setOpen(!open)}
       >
         <span className="text-xs font-semibold uppercase tracking-wider text-[color:var(--muted)]">
@@ -43,21 +34,20 @@ function FilterSection({ title, children, defaultOpen = true }) {
 }
 
 /** A single filter pill/checkbox row */
-function FilterOption({ label, checked, count, colorClass, icon, onChange }) {
+function FilterOption({ label, checked, count, colorClass, onChange }) {
   return (
-    <label className={`flex items-center gap-2.5 px-2 py-2 rounded-xl cursor-pointer group transition-all ${checked ? 'bg-brand-50/60' : 'hover:bg-brand-50/30'}`}>
+    <label className={`flex items-center gap-2.5 rounded-md px-2 py-2 cursor-pointer group transition-all ${checked ? 'bg-brand-50/70' : 'hover:bg-[color:var(--surface-2)]'}`}>
       <input
         type="checkbox"
         className="rounded border-slate-300 text-brand-600 w-4 h-4 cursor-pointer focus:ring-brand-500"
         checked={checked}
         onChange={onChange}
       />
-      <span className="flex-1 flex items-center gap-1.5 text-sm text-[color:var(--ink-soft)] group-hover:text-[color:var(--ink)]">
-        {icon && <span>{icon}</span>}
+      <span className="flex-1 flex items-center gap-1.5 text-sm text-[color:var(--ink-soft)] group-hover:text-[color:var(--ink)] min-w-0">
         {colorClass ? (
           <span className={`badge ${colorClass}`}>{label}</span>
         ) : (
-          label
+          <span className="truncate">{label}</span>
         )}
       </span>
       {count !== undefined && (
@@ -118,7 +108,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
   const SidebarContent = () => (
     <div className="h-full flex flex-col relative">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[color:var(--border)] flex items-center justify-between bg-[color:var(--surface)]/70">
+      <div className="px-4 py-3 border-b border-[color:var(--border)] flex items-center justify-between bg-[color:var(--surface)]">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="w-4 h-4 text-brand-600" />
           <span className="font-semibold text-sm text-[color:var(--ink)]">Filters</span>
@@ -137,8 +127,8 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       </div>
 
       {/* Case count */}
-      <div className="px-4 py-3 bg-[linear-gradient(90deg,rgba(59,130,246,0.12),rgba(234,88,12,0.08))] border-b border-brand-100/60">
-        <p className="text-[11px] uppercase tracking-[0.14em] text-brand-700 font-semibold mb-1">Visible cases</p>
+      <div className="px-4 py-3 bg-[color:var(--surface-2)] border-b border-[color:var(--border)]">
+        <p className="text-[11px] uppercase tracking-wide text-[color:var(--brand)] font-semibold mb-1">Visible cases</p>
         <p className="text-sm text-[color:var(--ink-soft)]">
           Showing <span className="font-bold">{totalVisible}</span> of{' '}
           <span className="font-bold">{totalAll}</span> cases
@@ -153,7 +143,6 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
             <FilterOption
               key={cat}
               label={cat}
-              icon={CATEGORY_ICONS[cat]}
               count={counts.category?.[cat]}
               checked={filters.categories?.includes(cat) ?? false}
               onChange={() => toggle('categories', cat)}
@@ -219,7 +208,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
         <div className="flex items-center gap-3">
           <button
             onClick={clearAll}
-            className="flex-1 rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm font-semibold text-[color:var(--ink-soft)]"
+            className="flex-1 rounded-md border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm font-semibold text-[color:var(--ink-soft)]"
           >
             Clear all
           </button>
@@ -240,7 +229,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       <div className="lg:hidden px-4 py-2 flex items-center gap-2">
         <button
           onClick={() => setMobileOpen(true)}
-          className="flex items-center gap-2 text-sm font-medium border border-[color:var(--border)] rounded-xl px-4 py-2.5 bg-[color:var(--surface)] hover:bg-slate-50 transition-colors shadow-sm"
+          className="flex items-center gap-2 rounded-md border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2.5 text-sm font-medium shadow-sm transition-colors hover:bg-[color:var(--surface-2)]"
         >
           <SlidersHorizontal className="w-4 h-4 text-brand-600" />
           Filters
@@ -257,7 +246,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute inset-x-0 bottom-0 max-h-[88vh] rounded-t-[1.75rem] bg-[color:var(--surface)] shadow-2xl overflow-hidden">
+          <div className="absolute inset-x-0 bottom-0 max-h-[88vh] rounded-t-lg bg-[color:var(--surface)] shadow-2xl overflow-hidden">
             <div className="flex items-center justify-center pt-3">
               <div className="h-1.5 w-12 rounded-full bg-slate-200" />
             </div>
@@ -279,7 +268,7 @@ export default function Sidebar({ options, counts, filters, setFilters, totalVis
       , document.body)}
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 bg-[color:var(--surface)]/72 border-r border-[color:var(--border)] min-h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-sm">
+      <aside className="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 bg-[color:var(--surface)] border-r border-[color:var(--border)] min-h-[calc(100vh-4rem)] sticky top-16">
         <SidebarContent />
       </aside>
     </>

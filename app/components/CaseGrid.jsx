@@ -12,7 +12,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
   return (
     <div className="flex-1 flex flex-col min-w-0">
       {/* Toolbar */}
-      <div className="sticky top-16 z-30 border-b border-[color:var(--border)] bg-[color:var(--surface-3)] px-4 sm:px-6 py-3 backdrop-blur-xl flex flex-wrap items-center gap-2 sm:gap-3">
+      <div className="sticky top-16 z-30 flex flex-wrap items-center gap-2 border-b border-[color:var(--border)] bg-[color:var(--surface-3)] px-4 py-3 backdrop-blur-xl sm:px-6 sm:gap-3">
         {/* Search */}
         <div className="relative flex-[1_1_100%] sm:flex-1 min-w-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[color:var(--muted)] pointer-events-none" />
@@ -21,7 +21,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
             placeholder="Search cases, companies, industries, years…"
             value={filters.search ?? ''}
             onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
-            className="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--ink)] focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder:text-[color:var(--muted)] transition-shadow"
+            className="w-full rounded-md border border-[color:var(--border)] bg-[color:var(--surface)] py-2.5 pl-9 pr-4 text-sm text-[color:var(--ink)] transition-shadow placeholder:text-[color:var(--muted)] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-brand-500"
           />
         </div>
 
@@ -31,17 +31,17 @@ export default function CaseGrid({ cases, filters, setFilters }) {
         </p>
 
         {/* View toggle */}
-        <div className="flex items-center gap-0.5 bg-[color:var(--surface)] border border-[color:var(--border)] rounded-xl p-0.5 shadow-sm">
+        <div className="flex items-center gap-0.5 rounded-md border border-[color:var(--border)] bg-[color:var(--surface)] p-0.5 shadow-sm">
           <button
             onClick={() => setView('grid')}
-            className={`p-1.5 rounded-md transition-colors ${view === 'grid' ? 'bg-brand-600 text-white' : 'text-[color:var(--muted)] hover:text-[color:var(--ink)] hover:bg-slate-100/70'}`}
+            className={`rounded p-1.5 transition-colors ${view === 'grid' ? 'bg-brand-600 text-white' : 'text-[color:var(--muted)] hover:text-[color:var(--ink)] hover:bg-[color:var(--surface-2)]'}`}
             title="Grid view"
           >
             <LayoutGrid className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => setView('list')}
-            className={`p-1.5 rounded-md transition-colors ${view === 'list' ? 'bg-brand-600 text-white' : 'text-[color:var(--muted)] hover:text-[color:var(--ink)] hover:bg-slate-100/70'}`}
+            className={`rounded p-1.5 transition-colors ${view === 'list' ? 'bg-brand-600 text-white' : 'text-[color:var(--muted)] hover:text-[color:var(--ink)] hover:bg-[color:var(--surface-2)]'}`}
             title="List view"
           >
             <List className="w-3.5 h-3.5" />
@@ -50,7 +50,7 @@ export default function CaseGrid({ cases, filters, setFilters }) {
       </div>
 
       {/* Grid / List */}
-      <div className="p-3 sm:p-6 flex-1">
+      <div className="flex-1 p-3 sm:p-5">
         {sorted.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 gap-4">
             <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
@@ -70,13 +70,13 @@ export default function CaseGrid({ cases, filters, setFilters }) {
             </button>
           </div>
         ) : view === 'grid' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {sorted.map((c) => (
               <CaseCard key={c.id} c={c} />
             ))}
           </div>
         ) : (
-          <div className="flex flex-col gap-2 max-w-4xl">
+          <div className="flex max-w-5xl flex-col gap-2">
             {sorted.map((c) => (
               <ListRow key={c.id} c={c} />
             ))}
@@ -92,16 +92,16 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 const DIFF_STYLES = {
-  Easy:   'bg-emerald-50 text-emerald-700 border-emerald-200',
-  Medium: 'bg-amber-50  text-amber-700  border-amber-200',
-  Hard:   'bg-red-50    text-red-700    border-red-200',
+  Easy:   'badge-easy',
+  Medium: 'badge-medium',
+  Hard:   'badge-hard',
 }
 
 function ListRow({ c }) {
   return (
     <Link
       href={`/cases/${c.id}`}
-      className="card case-tile px-4 sm:px-5 py-3.5 flex items-center gap-3 sm:gap-4 transition-all duration-150 group"
+      className="card case-tile flex items-center gap-3 px-4 py-3.5 transition-all duration-150 group sm:gap-4 sm:px-5"
     >
       <div className="flex-1 min-w-0">
         <div className="flex flex-wrap items-center gap-2 mb-0.5">
@@ -113,11 +113,11 @@ function ListRow({ c }) {
           <span className="text-xs text-slate-300">·</span>
           <span className="text-xs text-[color:var(--muted)]">{c.industry}</span>
         </div>
-        <p className="font-medium text-sm text-[color:var(--ink)] group-hover:text-brand-700 truncate transition-colors">
+        <p className="truncate text-sm font-medium text-[color:var(--ink)] transition-colors group-hover:text-[color:var(--brand)]">
           {c.title}
         </p>
       </div>
-      <span className={`badge border flex-shrink-0 hidden sm:inline-flex ${DIFF_STYLES[c.difficulty] ?? DIFF_STYLES.Medium}`}>
+      <span className={`badge flex-shrink-0 hidden sm:inline-flex ${DIFF_STYLES[c.difficulty] ?? DIFF_STYLES.Medium}`}>
         {c.difficulty}
       </span>
       <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-brand-500 flex-shrink-0 transition-colors" />

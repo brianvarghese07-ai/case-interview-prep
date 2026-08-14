@@ -8,19 +8,21 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-        display: ['Sora', 'system-ui', 'sans-serif'],
+        sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
       },
       colors: {
+        ink: '#191a23',
         brand: {
-          50:  '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          50:  '#eef2fa',
+          100: '#dfe7f5',
+          200: '#c2d0eb',
+          300: '#9ab0dc',
+          500: '#33549f',
+          600: '#24438c',
+          700: '#1e3a8a',
+          800: '#172c61',
+          900: '#12224b',
         },
         slate: {
           50:  '#f8fafc',

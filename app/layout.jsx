@@ -30,51 +30,37 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-screen">
         {/* Top Navigation Bar */}
-        <header className="sticky top-0 z-50 border-b border-[color:var(--border)] bg-[color:var(--header)]/90 backdrop-blur-md">
+        <header className="sticky top-0 z-50 border-b border-[color:var(--border)] bg-[color:var(--header)]/95 backdrop-blur-md">
           <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
             {/* Logo / Brand */}
-            <a href="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center flex-shrink-0 shadow-md shadow-brand-200/80">
+            <a href="/" className="flex items-center gap-2.5 group min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-[color:var(--brand)] flex items-center justify-center flex-shrink-0">
                 <svg viewBox="0 0 20 20" fill="white" className="w-4 h-4">
                   <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
                 </svg>
               </div>
-              <div className="leading-tight min-w-0">
-                <p className="text-sm sm:text-base font-semibold text-[color:var(--ink)] group-hover:text-brand-700 transition-colors truncate">
-                  Case Interview Prep
-                </p>
-                <p className="text-xs text-[color:var(--muted)] hidden sm:block">IFSA Casebooks 2023-2025</p>
-              </div>
+              <p className="text-sm sm:text-base font-semibold tracking-tight text-[color:var(--ink)] truncate">
+                Case Interview Prep
+              </p>
             </a>
 
             {/* Right side links */}
-            <nav className="flex items-center gap-2">
+            <nav className="flex items-center gap-1 sm:gap-2">
               <a
                 href="/"
-                className="text-sm font-medium text-[color:var(--ink-soft)] hover:text-brand-700 px-2 sm:px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors"
+                className="rounded-lg px-2 py-1.5 text-sm font-medium text-[color:var(--ink-soft)] transition-colors hover:bg-[color:var(--brand-soft)] hover:text-[color:var(--brand)] sm:px-3"
               >
                 Cases
               </a>
               <a
                 href="/practice"
-                className="text-sm font-medium text-[color:var(--ink-soft)] hover:text-brand-700 px-2 sm:px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors"
+                className="rounded-lg px-2 py-1.5 text-sm font-medium text-[color:var(--ink-soft)] transition-colors hover:bg-[color:var(--brand-soft)] hover:text-[color:var(--brand)] sm:px-3"
               >
-                Practice Chat
-              </a>
-              <a
-                href="/#about"
-                className="hidden sm:inline-flex text-sm font-medium text-[color:var(--ink-soft)] hover:text-brand-700 px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors"
-              >
-                About
+                Practice
               </a>
               <ThemeToggle />
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex ml-2 btn-primary"
-              >
-                GitHub
+              <a href="/practice" className="btn-primary hidden md:inline-flex ml-1">
+                Start practice
               </a>
             </nav>
           </div>
